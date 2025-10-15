@@ -1,0 +1,120 @@
+{
+  "version": 3,
+  "targets": {
+    "net9.0-windows7.0": {
+      "FarmSimulation.Business/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "FarmSimulation.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/FarmSimulation.Business.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FarmSimulation.Business.dll": {}
+        }
+      },
+      "FarmSimulation.Data/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/FarmSimulation.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FarmSimulation.Data.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FarmSimulation.Business/1.0.0": {
+      "type": "project",
+      "path": "../FarmSimulation.Business/FarmSimulation.Business.csproj",
+      "msbuildProject": "../FarmSimulation.Business/FarmSimulation.Business.csproj"
+    },
+    "FarmSimulation.Data/1.0.0": {
+      "type": "project",
+      "path": "../FarmSimulation.Data/FarmSimulation.Data.csproj",
+      "msbuildProject": "../FarmSimulation.Data/FarmSimulation.Data.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net9.0-windows7.0": [
+      "FarmSimulation.Business >= 1.0.0",
+      "FarmSimulation.Data >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\burak\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\Farm Simulation\\FarmSimulation.UI.csproj",
+      "projectName": "FarmSimulation.UI",
+      "projectPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\Farm Simulation\\FarmSimulation.UI.csproj",
+      "packagesPath": "C:\\Users\\burak\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\Farm Simulation\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\burak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net9.0-windows"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net9.0-windows7.0": {
+          "targetAlias": "net9.0-windows",
+          "projectReferences": {
+            "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\FarmSimulation.Business\\FarmSimulation.Business.csproj": {
+              "projectPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\FarmSimulation.Business\\FarmSimulation.Business.csproj"
+            },
+            "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\FarmSimulation.Data\\FarmSimulation.Data.csproj": {
+              "projectPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\FarmSimulation.Data\\FarmSimulation.Data.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "10.0.100"
+    },
+    "frameworks": {
+      "net9.0-windows7.0": {
+        "targetAlias": "net9.0-windows",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100-rc.2.25502.107/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

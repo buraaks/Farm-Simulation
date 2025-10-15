@@ -1,0 +1,7 @@
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\Farm Simulation\obj\Debug\net9.0-windows\Farm_Simulation.Form1.resources
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\Farm Simulation\obj\Debug\net9.0-windows\Farm Simulation.csproj.GenerateResource.cache
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\Farm Simulation\obj\Debug\net9.0-windows\Farm Simulation.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\Farm Simulation\obj\Debug\net9.0-windows\Farm Simulation.AssemblyInfoInputs.cache
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\Farm Simulation\obj\Debug\net9.0-windows\Farm Simulation.AssemblyInfo.cs
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\Farm Simulation\obj\Debug\net9.0-windows\Farm Simulation.csproj.CoreCompileInputs.cache
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\Farm Simulation\obj\Debug\net9.0-windows\Farm Simulation.sourcelink.json

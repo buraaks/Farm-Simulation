@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Farm Simulation/FarmSimulation.UI.csproj" />
+  <Project Path="FarmSimulation.Business/FarmSimulation.Business.csproj" Id="b84c6d9d-cf51-4320-bba0-74fb5aaa6b88" />
+  <Project Path="FarmSimulation.Data/FarmSimulation.Data.csproj" Id="6aded4f4-d63c-4f39-b63a-bdd03d0b9494" />
+  <Project Path="FarmSimulation.Database/FarmSimulation.Database.csproj" Id="570e4422-5059-433c-8fa6-d21f208eca14" />
+</Solution>
