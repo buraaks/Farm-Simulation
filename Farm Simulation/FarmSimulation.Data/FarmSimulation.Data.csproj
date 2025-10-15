@@ -47,6 +47,7 @@
     <Compile Include="Models\AnimalBase.cs" />
     <Compile Include="Models\Chicken.cs" />
     <Compile Include="Models\Cow.cs" />
+    <Compile Include="Models\FarmDbContext.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Goat.cs" />
     <Compile Include="Models\Product.cs" />

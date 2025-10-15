@@ -1,0 +1,22 @@
+﻿namespace FarmSimulation.Data.Models
+{
+    public abstract class AnimalBase
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public int Age { get; set; }
+        public Sex Sex { get; set; }
+
+        protected AnimalBase() { } // EF Core için parametresiz ctor
+
+        protected AnimalBase(string name, int age, Sex sex)
+        {
+            Name = name;
+            Age = age;
+            Sex = sex;
+        }
+
+        // Her hayvan kendi ürününü üretecek
+        public abstract Product? Produce();
+    }
+}

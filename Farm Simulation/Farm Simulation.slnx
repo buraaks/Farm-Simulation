@@ -1,6 +1,5 @@
 <Solution>
+  <Project Path="a/FarmSimulation.Data.csproj" Id="0fb2f4b4-e7e0-488e-8fef-0684808c51ac" />
   <Project Path="Farm Simulation/FarmSimulation.UI.csproj" />
-  <Project Path="FarmSimulation.Business/FarmSimulation.Business.csproj" Id="b84c6d9d-cf51-4320-bba0-74fb5aaa6b88" />
-  <Project Path="FarmSimulation.Data/FarmSimulation.Data.csproj" Id="6aded4f4-d63c-4f39-b63a-bdd03d0b9494" />
-  <Project Path="FarmSimulation.Database/FarmSimulation.Database.csproj" Id="570e4422-5059-433c-8fa6-d21f208eca14" />
+  <Project Path="FarmSimulation.Businessnew/FarmSimulation.Business.csproj" Id="3c6e95f1-f04e-416d-ba28-110a4d6da8d4" />
 </Solution>

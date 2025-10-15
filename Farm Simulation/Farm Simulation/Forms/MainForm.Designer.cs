@@ -35,6 +35,7 @@
             btnCollectProducts = new Button();
             btnSellAll = new Button();
             cmbAnimalType = new ComboBox();
+            progressProduction = new ProgressBar();
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             SuspendLayout();
@@ -42,19 +43,19 @@
             // dgvAnimals
             // 
             dgvAnimals.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAnimals.Location = new Point(465, 12);
+            dgvAnimals.Location = new Point(350, 12);
             dgvAnimals.Name = "dgvAnimals";
             dgvAnimals.RowHeadersWidth = 51;
-            dgvAnimals.Size = new Size(300, 188);
+            dgvAnimals.Size = new Size(713, 260);
             dgvAnimals.TabIndex = 0;
             // 
             // dgvProducts
             // 
             dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProducts.Location = new Point(465, 221);
+            dgvProducts.Location = new Point(350, 301);
             dgvProducts.Name = "dgvProducts";
             dgvProducts.RowHeadersWidth = 51;
-            dgvProducts.Size = new Size(300, 188);
+            dgvProducts.Size = new Size(713, 260);
             dgvProducts.TabIndex = 1;
             // 
             // lblCash
@@ -84,6 +85,7 @@
             btnCollectProducts.TabIndex = 4;
             btnCollectProducts.Text = "Ürünleri Topla";
             btnCollectProducts.UseVisualStyleBackColor = true;
+            btnCollectProducts.Click += btnCollectProducts_Click;
             // 
             // btnSellAll
             // 
@@ -93,6 +95,7 @@
             btnSellAll.TabIndex = 6;
             btnSellAll.Text = "Ürünleri Sat";
             btnSellAll.UseVisualStyleBackColor = true;
+            btnSellAll.Click += btnSellAll_Click;
             // 
             // cmbAnimalType
             // 
@@ -101,12 +104,21 @@
             cmbAnimalType.Name = "cmbAnimalType";
             cmbAnimalType.Size = new Size(151, 28);
             cmbAnimalType.TabIndex = 7;
+            cmbAnimalType.SelectedIndexChanged += cmbAnimalType_SelectedIndexChanged;
+            // 
+            // progressProduction
+            // 
+            progressProduction.Location = new Point(12, 330);
+            progressProduction.Name = "progressProduction";
+            progressProduction.Size = new Size(332, 29);
+            progressProduction.TabIndex = 8;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1075, 579);
+            Controls.Add(progressProduction);
             Controls.Add(cmbAnimalType);
             Controls.Add(btnSellAll);
             Controls.Add(btnCollectProducts);
@@ -132,5 +144,6 @@
         private Button btnCollectProducts;
         private Button btnSellAll;
         private ComboBox cmbAnimalType;
+        private ProgressBar progressProduction;
     }
 }

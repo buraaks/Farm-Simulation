@@ -1,0 +1,15 @@
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\bin\Debug\net9.0\FarmSimulation.Data.deps.json
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\bin\Debug\net9.0\FarmSimulation.Data.runtimeconfig.json
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\bin\Debug\net9.0\FarmSimulation.Data.dll
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\bin\Debug\net9.0\FarmSimulation.Data.pdb
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\FarmSimulation.Data.csproj.AssemblyReference.cache
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\FarmSimulation.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\FarmSimulation.Data.AssemblyInfoInputs.cache
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\FarmSimulation.Data.AssemblyInfo.cs
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\FarmSimulation.Data.csproj.CoreCompileInputs.cache
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\FarmSimulation.Data.sourcelink.json
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\FarmSimulation.Data.dll
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\refint\FarmSimulation.Data.dll
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\FarmSimulation.Data.pdb
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\FarmSimulation.Data.genruntimeconfig.cache
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\Farm Simulation\a\obj\Debug\net9.0\ref\FarmSimulation.Data.dll

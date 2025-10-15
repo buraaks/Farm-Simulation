@@ -1,16 +1,5 @@
-﻿using FarmSim.Business.Services;
-using FarmSim.Data.Models;
-using FarmSimulation.Business.Services;
+﻿using FarmSimulation.Business.Services;
 using FarmSimulation.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 
 namespace Farm_Simulation.Forms
@@ -42,22 +31,23 @@ namespace Farm_Simulation.Forms
         {
             if (cmbAnimalType.SelectedItem is null)
                 return;
+
             string selected = cmbAnimalType.SelectedItem.ToString()!;
             AnimalBase? animal = null;
 
             switch (selected)
             {
                 case "Chicken":
-                    animal = new Chicken("Tavuk", 0, Sex.Female);
+                    animal = new Chicken { Name = "Tavuk", Age = 0, Sex = Sex.Female };
                     break;
                 case "Cow":
-                    animal = new Cow("İnek", 0, Sex.Female);
+                    animal = new Cow { Name = "İnek", Age = 0, Sex = Sex.Female };
                     break;
                 case "Sheep":
-                    animal = new Sheep("Koyun", 0, Sex.Female);
+                    animal = new Sheep { Name = "Koyun", Age = 0, Sex = Sex.Female };
                     break;
                 case "Goat":
-                    animal = new Goat("Keçi", 0, Sex.Female);
+                    animal = new Goat { Name = "Keçi", Age = 0, Sex = Sex.Female };
                     break;
             }
 
@@ -69,14 +59,51 @@ namespace Farm_Simulation.Forms
         }
         private void RefreshUI()
         {
+            // Hayvanları listele
             dgvAnimals.DataSource = null;
-            dgvAnimals.DataSource = _farmService.GetAnimals();
+            var animals = _farmService.GetAnimals();
+            dgvAnimals.DataSource = animals ?? new List<AnimalBase>();
 
+            // Ürünleri listele
             dgvProducts.DataSource = null;
-            dgvProducts.DataSource = _farmService.GetProducts();
+            var products = _farmService.GetProducts();
+            dgvProducts.DataSource = products ?? new List<Product>();
 
-            lblCash.Text = $"Cash: {_farmService.CashBalance} ₺";
+            // Kasa güncelle
+            var cash = _farmService.GetCash();
+            lblCash.Text = $"Cash: {cash} ₺";
+
         }
 
+        private void btnCollectProducts_Click(object sender, EventArgs e)
+        {
+            progressProduction.Minimum = 0;
+            progressProduction.Maximum = 100;
+            progressProduction.Value = 0;
+
+            for (int i = 0; i <= 100; i += 20)
+            {
+                progressProduction.Value = i;
+                progressProduction.Refresh();
+                System.Threading.Thread.Sleep(100);
+            }
+
+            _farmService.CollectProducts();
+            RefreshUI();
+
+            progressProduction.Value = 0;
+        }
+
+        private void btnSellAll_Click(object sender, EventArgs e)
+        {
+            _farmService.SellAllProducts();
+            RefreshUI();
+            progressProduction.Value = 0;
+        }
+
+        private void cmbAnimalType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
