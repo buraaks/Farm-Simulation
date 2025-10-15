@@ -36,8 +36,14 @@
             btnSellAll = new Button();
             cmbAnimalType = new ComboBox();
             progressProduction = new ProgressBar();
+            cmbSex = new ComboBox();
+            nudAge = new NumericUpDown();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudAge).BeginInit();
             SuspendLayout();
             // 
             // dgvAnimals
@@ -61,7 +67,7 @@
             // lblCash
             // 
             lblCash.AutoSize = true;
-            lblCash.Location = new Point(75, 35);
+            lblCash.Location = new Point(12, 9);
             lblCash.Name = "lblCash";
             lblCash.Size = new Size(63, 20);
             lblCash.TabIndex = 2;
@@ -69,9 +75,9 @@
             // 
             // btnAddAnimal
             // 
-            btnAddAnimal.Location = new Point(185, 77);
+            btnAddAnimal.Location = new Point(238, 59);
             btnAddAnimal.Name = "btnAddAnimal";
-            btnAddAnimal.Size = new Size(94, 29);
+            btnAddAnimal.Size = new Size(94, 150);
             btnAddAnimal.TabIndex = 3;
             btnAddAnimal.Text = "Ekle";
             btnAddAnimal.UseVisualStyleBackColor = true;
@@ -79,9 +85,9 @@
             // 
             // btnCollectProducts
             // 
-            btnCollectProducts.Location = new Point(57, 155);
+            btnCollectProducts.Location = new Point(12, 482);
             btnCollectProducts.Name = "btnCollectProducts";
-            btnCollectProducts.Size = new Size(122, 29);
+            btnCollectProducts.Size = new Size(159, 29);
             btnCollectProducts.TabIndex = 4;
             btnCollectProducts.Text = "Ürünleri Topla";
             btnCollectProducts.UseVisualStyleBackColor = true;
@@ -89,9 +95,9 @@
             // 
             // btnSellAll
             // 
-            btnSellAll.Location = new Point(57, 190);
+            btnSellAll.Location = new Point(181, 482);
             btnSellAll.Name = "btnSellAll";
-            btnSellAll.Size = new Size(122, 29);
+            btnSellAll.Size = new Size(159, 29);
             btnSellAll.TabIndex = 6;
             btnSellAll.Text = "Ürünleri Sat";
             btnSellAll.UseVisualStyleBackColor = true;
@@ -100,7 +106,7 @@
             // cmbAnimalType
             // 
             cmbAnimalType.FormattingEnabled = true;
-            cmbAnimalType.Location = new Point(28, 78);
+            cmbAnimalType.Location = new Point(81, 59);
             cmbAnimalType.Name = "cmbAnimalType";
             cmbAnimalType.Size = new Size(151, 28);
             cmbAnimalType.TabIndex = 7;
@@ -108,16 +114,65 @@
             // 
             // progressProduction
             // 
-            progressProduction.Location = new Point(12, 330);
+            progressProduction.Location = new Point(12, 532);
             progressProduction.Name = "progressProduction";
             progressProduction.Size = new Size(332, 29);
             progressProduction.TabIndex = 8;
+            // 
+            // cmbSex
+            // 
+            cmbSex.FormattingEnabled = true;
+            cmbSex.Items.AddRange(new object[] { "Male", "Famale" });
+            cmbSex.Location = new Point(81, 186);
+            cmbSex.Name = "cmbSex";
+            cmbSex.Size = new Size(151, 28);
+            cmbSex.TabIndex = 9;
+            // 
+            // nudAge
+            // 
+            nudAge.Location = new Point(82, 124);
+            nudAge.Name = "nudAge";
+            nudAge.Size = new Size(150, 27);
+            nudAge.TabIndex = 10;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(42, 62);
+            label1.Name = "label1";
+            label1.Size = new Size(33, 20);
+            label1.TabIndex = 11;
+            label1.Text = "Tür:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(42, 126);
+            label2.Name = "label2";
+            label2.Size = new Size(33, 20);
+            label2.TabIndex = 12;
+            label2.Text = "Yaş:";
+            label2.Click += label2_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 189);
+            label3.Name = "label3";
+            label3.Size = new Size(63, 20);
+            label3.TabIndex = 13;
+            label3.Text = "Cinsiyet:";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1075, 579);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(nudAge);
+            Controls.Add(cmbSex);
             Controls.Add(progressProduction);
             Controls.Add(cmbAnimalType);
             Controls.Add(btnSellAll);
@@ -131,6 +186,7 @@
             Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudAge).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -145,5 +201,10 @@
         private Button btnSellAll;
         private ComboBox cmbAnimalType;
         private ProgressBar progressProduction;
+        private ComboBox cmbSex;
+        private NumericUpDown nudAge;
+        private Label label1;
+        private Label label2;
+        private Label label3;
     }
 }

@@ -29,32 +29,14 @@ namespace Farm_Simulation.Forms
 
         private void btnAddAnimal_Click(object sender, EventArgs e)
         {
-            if (cmbAnimalType.SelectedItem is null)
-                return;
+            string selectedType = cmbAnimalType.SelectedItem?.ToString() ?? "";
+            int age = (int)nudAge.Value;
+            Sex sex = (Sex)Enum.Parse(typeof(Sex), cmbSex.SelectedItem?.ToString() ?? "Male");
 
-            string selected = cmbAnimalType.SelectedItem.ToString()!;
-            AnimalBase? animal = null;
-
-            switch (selected)
+            if (!string.IsNullOrEmpty(selectedType))
             {
-                case "Chicken":
-                    animal = new Chicken { Name = "Tavuk", Age = 0, Sex = Sex.Female };
-                    break;
-                case "Cow":
-                    animal = new Cow { Name = "İnek", Age = 0, Sex = Sex.Female };
-                    break;
-                case "Sheep":
-                    animal = new Sheep { Name = "Koyun", Age = 0, Sex = Sex.Female };
-                    break;
-                case "Goat":
-                    animal = new Goat { Name = "Keçi", Age = 0, Sex = Sex.Female };
-                    break;
-            }
-
-            if (animal != null)
-            {
-                _farmService.AddAnimal(animal);
-                RefreshUI();
+                _farmService.AddAnimal(selectedType, age, sex);
+                LoadAnimals();
             }
         }
         private void RefreshUI()
@@ -100,8 +82,17 @@ namespace Farm_Simulation.Forms
             RefreshUI();
             progressProduction.Value = 0;
         }
-
+        private void LoadAnimals()
+        {
+            dgvAnimals.DataSource = null;
+            dgvAnimals.DataSource = _farmService.GetAnimals();
+        }
         private void cmbAnimalType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }

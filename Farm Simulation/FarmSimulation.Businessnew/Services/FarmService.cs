@@ -1,5 +1,6 @@
 ﻿using FarmSimulation.Data;
 using FarmSimulation.Data.Models;
+using static FarmSimulation.Data.Models.AnimalBase;
 
 namespace FarmSimulation.Business.Services
 {
@@ -13,10 +14,22 @@ namespace FarmSimulation.Business.Services
         }
 
         // Hayvan ekleme
-        public void AddAnimal(AnimalBase animal)
+        public void AddAnimal(string type, int age, Sex sex)
         {
-            _context.Animals.Add(animal);
-            _context.SaveChanges();
+            AnimalBase? animal = type switch
+            {
+                "Chicken" => new Chicken { Name = "Tavuk", Age = age, Sex = sex },
+                "Cow" => new Cow { Name = "İnek", Age = age, Sex = sex },
+                "Sheep" => new Sheep { Name = "Koyun", Age = age, Sex = sex },
+                "Goat" => new Goat { Name = "Keçi", Age = age, Sex = sex },
+                _ => null
+            };
+
+            if (animal != null)
+            {
+                _context.Animals.Add(animal);
+                _context.SaveChanges();
+            }
         }
 
         // Hayvan listeleme
