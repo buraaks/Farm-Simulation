@@ -41,6 +41,7 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            btnZeroMoney = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudAge).BeginInit();
@@ -69,9 +70,9 @@
             lblCash.AutoSize = true;
             lblCash.Location = new Point(12, 9);
             lblCash.Name = "lblCash";
-            lblCash.Size = new Size(63, 20);
+            lblCash.Size = new Size(60, 20);
             lblCash.TabIndex = 2;
-            lblCash.Text = "Cash: 0₺";
+            lblCash.Text = "Para: 0₺";
             // 
             // btnAddAnimal
             // 
@@ -164,11 +165,22 @@
             label3.TabIndex = 13;
             label3.Text = "Cinsiyet:";
             // 
+            // btnZeroMoney
+            // 
+            btnZeroMoney.Location = new Point(12, 32);
+            btnZeroMoney.Name = "btnZeroMoney";
+            btnZeroMoney.Size = new Size(19, 25);
+            btnZeroMoney.TabIndex = 14;
+            btnZeroMoney.Text = "0";
+            btnZeroMoney.UseVisualStyleBackColor = true;
+            btnZeroMoney.Click += btnZeroMoney_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1075, 579);
+            Controls.Add(btnZeroMoney);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -207,5 +219,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
+        private Button btnZeroMoney;
     }
 }

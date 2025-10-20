@@ -99,5 +99,21 @@ namespace FarmSimulation.Business.Services
                 _context.SaveChanges();
             }
         }
+        public void ResetCash()
+        {
+            var cash = _context.Cash.FirstOrDefault();
+            if (cash == null)
+            {
+                // Eğer kayıt yoksa sıfır tutarlı bir kayıt ekle
+                cash = new Cash { Tutar = 0m };
+                _context.Cash.Add(cash);
+            }
+            else
+            {
+                cash.Tutar = 0m;
+                _context.Cash.Update(cash);
+            }
+            _context.SaveChanges();
+        }
     }
 }

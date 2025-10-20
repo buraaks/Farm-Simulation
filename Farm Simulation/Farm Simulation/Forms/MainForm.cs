@@ -44,7 +44,7 @@ namespace Farm_Simulation.Forms
 
             // Kasa güncelle
             var cash = _farmService.GetCash();
-            lblCash.Text = $"Cash: {cash} ₺";
+            lblCash.Text = $"Para: {cash} ₺";
 
         }
 
@@ -86,6 +86,12 @@ namespace Farm_Simulation.Forms
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnZeroMoney_Click(object sender, EventArgs e)
+        {
+            _farmService.ResetCash();
+            RefreshUI();
         }
     }
 }
