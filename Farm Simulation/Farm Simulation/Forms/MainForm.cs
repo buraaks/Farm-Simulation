@@ -20,13 +20,13 @@ namespace Farm_Simulation.Forms
 
         private void btnAddAnimal_Click(object sender, EventArgs e)
         {
-            string selectedType = cmbAnimalType.SelectedItem?.ToString() ?? "";
+            string selectedName = cmbAnimalType.SelectedItem?.ToString() ?? "";
             int age = (int)nudAge.Value;
             Sex sex = (Sex)Enum.Parse(typeof(Sex), cmbSex.SelectedItem?.ToString() ?? "Erkek");
 
-            if (!string.IsNullOrEmpty(selectedType))
+            if (!string.IsNullOrEmpty(selectedName))
             {
-                _farmService.AddAnimal(selectedType, age, sex);
+                _farmService.AddAnimal(selectedName, age, sex);
                 LoadAnimals();
             }
         }

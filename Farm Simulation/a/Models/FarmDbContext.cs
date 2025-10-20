@@ -22,7 +22,7 @@ namespace FarmSimulation.Data
         {
             // AnimalBase soyut sınıfı için TPH (Table Per Hierarchy) yapılandırması
             modelBuilder.Entity<AnimalBase>()
-                        .HasDiscriminator<string>("Tür")
+                        .HasDiscriminator<string>("Ad")
                         .HasValue<Chicken>("Tavuk")
                         .HasValue<Cow>("İnek")
                         .HasValue<Sheep>("Koyun")

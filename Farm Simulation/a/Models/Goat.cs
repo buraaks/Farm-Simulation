@@ -4,7 +4,7 @@
     {
         public Goat()
         {
-            Tür = "Keçi";
+
         }
 
         public override Product? Produce()

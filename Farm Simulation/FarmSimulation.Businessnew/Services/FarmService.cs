@@ -14,22 +14,19 @@ namespace FarmSimulation.Business.Services
         }
 
         // Hayvan ekleme
-        public void AddAnimal(string type, int age, Sex sex)
+        public void AddAnimal(string selectedType, int age, Sex sex)
         {
-            AnimalBase? animal = type switch
+            AnimalBase animal = selectedType switch
             {
                 "Tavuk" => new Chicken { Ad = "Tavuk", Yaş = age, Cinsiyet = sex },
                 "İnek" => new Cow { Ad = "İnek", Yaş = age, Cinsiyet = sex },
                 "Koyun" => new Sheep { Ad = "Koyun", Yaş = age, Cinsiyet = sex },
                 "Keçi" => new Goat { Ad = "Keçi", Yaş = age, Cinsiyet = sex },
-                _ => null
+                _ => throw new ArgumentException("Geçersiz tür")
             };
 
-            if (animal != null)
-            {
-                _context.Animals.Add(animal);
-                _context.SaveChanges();
-            }
+            _context.Animals.Add(animal);
+            _context.SaveChanges();
         }
 
         // Hayvan listeleme

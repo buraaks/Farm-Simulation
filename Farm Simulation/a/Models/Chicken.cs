@@ -4,7 +4,7 @@
     {
         public Chicken()
         {
-            Tür = "Tavuk";
+             
         }
 
         public override Product? Produce()
