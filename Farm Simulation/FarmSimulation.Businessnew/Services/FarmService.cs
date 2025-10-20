@@ -18,10 +18,10 @@ namespace FarmSimulation.Business.Services
         {
             AnimalBase? animal = type switch
             {
-                "Chicken" => new Chicken { Name = "Tavuk", Age = age, Sex = sex },
-                "Cow" => new Cow { Name = "İnek", Age = age, Sex = sex },
-                "Sheep" => new Sheep { Name = "Koyun", Age = age, Sex = sex },
-                "Goat" => new Goat { Name = "Keçi", Age = age, Sex = sex },
+                "Tavuk" => new Chicken { Ad = "Tavuk", Yaş = age, Cinsiyet = sex },
+                "İnek" => new Cow { Ad = "İnek", Yaş = age, Cinsiyet = sex },
+                "Koyun" => new Sheep { Ad = "Koyun", Yaş = age, Cinsiyet = sex },
+                "Keçi" => new Goat { Ad = "Keçi", Yaş = age, Cinsiyet = sex },
                 _ => null
             };
 
@@ -48,7 +48,7 @@ namespace FarmSimulation.Business.Services
         public decimal GetCash()
         {
             var cash = _context.Cash.FirstOrDefault();
-            return cash?.Amount ?? 0;
+            return cash?.Tutar ?? 0;
         }
 
         // Ürün toplama
@@ -72,18 +72,18 @@ namespace FarmSimulation.Business.Services
         public void SellAllProducts()
         {
             var products = _context.Products.ToList();
-            decimal total = products.Sum(p => p.Price * p.Quantity);
+            decimal total = products.Sum(p => p.Tutar * p.Miktar);
 
             // Kasa güncelle
             var cash = _context.Cash.FirstOrDefault();
             if (cash == null)
             {
-                cash = new Cash { Amount = total };
+                cash = new Cash { Tutar = (int)total };
                 _context.Cash.Add(cash);
             }
             else
             {
-                cash.Amount += total;
+                cash.Tutar += total;
                 _context.Cash.Update(cash);
             }
 

@@ -15,23 +15,14 @@ namespace Farm_Simulation.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            cmbAnimalType.Items.AddRange(new object[]
-            {
-                "Chicken",
-                "Cow",
-                "Sheep",
-                "Goat"
-            });
-            cmbAnimalType.SelectedIndex = 0;
 
-            RefreshUI();
         }
 
         private void btnAddAnimal_Click(object sender, EventArgs e)
         {
             string selectedType = cmbAnimalType.SelectedItem?.ToString() ?? "";
             int age = (int)nudAge.Value;
-            Sex sex = (Sex)Enum.Parse(typeof(Sex), cmbSex.SelectedItem?.ToString() ?? "Male");
+            Sex sex = (Sex)Enum.Parse(typeof(Sex), cmbSex.SelectedItem?.ToString() ?? "Erkek");
 
             if (!string.IsNullOrEmpty(selectedType))
             {

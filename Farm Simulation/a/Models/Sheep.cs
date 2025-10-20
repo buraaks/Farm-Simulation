@@ -4,16 +4,16 @@
     {
         public Sheep()
         {
-            AnimalType = "Sheep";
+            Tür = "Koyun";
         }
 
         public override Product? Produce()
         {
             return new Product
             {
-                Name = "Wool",
-                Quantity = 1,
-                Price = 15m
+                Ad = "Yün",
+                Miktar = 1,
+                Tutar = 15m
             };
         }
     }

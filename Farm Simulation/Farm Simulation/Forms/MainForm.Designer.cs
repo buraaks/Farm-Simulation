@@ -106,6 +106,7 @@
             // cmbAnimalType
             // 
             cmbAnimalType.FormattingEnabled = true;
+            cmbAnimalType.Items.AddRange(new object[] { "Tavuk", "İnek", "Koyun", "Keçi" });
             cmbAnimalType.Location = new Point(81, 59);
             cmbAnimalType.Name = "cmbAnimalType";
             cmbAnimalType.Size = new Size(151, 28);
@@ -122,7 +123,7 @@
             // cmbSex
             // 
             cmbSex.FormattingEnabled = true;
-            cmbSex.Items.AddRange(new object[] { "Male", "Famale" });
+            cmbSex.Items.AddRange(new object[] { "Erkek", "Kız" });
             cmbSex.Location = new Point(81, 186);
             cmbSex.Name = "cmbSex";
             cmbSex.Size = new Size(151, 28);

@@ -3,10 +3,10 @@
     public abstract class AnimalBase
     {
         public int Id { get; set; }
-        public string Name { get; set; } = "";
-        public int Age { get; set; }
-        public Sex Sex { get; set; }
-        public string AnimalType { get; protected set; } = "";
+        public string Ad { get; set; } = "";
+        public int Yaş { get; set; }
+        public Sex Cinsiyet { get; set; }
+        public string Tür { get; protected set; } = "";
 
         // Her hayvan kendi ürününü üretecek
         public abstract Product? Produce();

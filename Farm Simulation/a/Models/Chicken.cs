@@ -4,16 +4,16 @@
     {
         public Chicken()
         {
-            AnimalType = "Chicken";
+            Tür = "Tavuk";
         }
 
         public override Product? Produce()
         {
             return new Product
             {
-                Name = "Egg",
-                Quantity = 1,
-                Price = 2.5m
+                Ad = "Yumurta",
+                Miktar = 1,
+                Tutar = 2.5m
             };
         }
     }
