@@ -1,10 +1,19 @@
-﻿﻿﻿﻿﻿namespace FarmSimulation.Data.Models
+﻿﻿﻿﻿﻿﻿﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FarmSimulation.Data.Models
 {
     public abstract class AnimalBase
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        
+        [Required]
         public string Ad { get; set; } = "";
+        
         public int Yaş { get; set; }
+        
         public Sex Cinsiyet { get; set; }
 
         // Navigation property for lifecycle

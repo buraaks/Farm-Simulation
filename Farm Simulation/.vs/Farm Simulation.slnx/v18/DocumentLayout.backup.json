@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{0FB2F4B4-E7E0-488E-8FEF-0684808C51AC}|FarmSimulation.Data\\FarmSimulation.Data.csproj|c:\\users\\burak\\onedrive\\desktop\\farm-simulation\\farm simulation\\farmsimulation.data\\models\\animalbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB2F4B4-E7E0-488E-8FEF-0684808C51AC}|FarmSimulation.Data\\FarmSimulation.Data.csproj|solutionrelative:farmsimulation.data\\models\\animalbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2371AACC-1E9E-5050-7FA6-7C3F4A8839C5}|FarmSimulation.UI\\FarmSimulation.UI.csproj|c:\\users\\burak\\onedrive\\desktop\\farm-simulation\\farm simulation\\farmsimulation.ui\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{2371AACC-1E9E-5050-7FA6-7C3F4A8839C5}|FarmSimulation.UI\\FarmSimulation.UI.csproj|solutionrelative:farmsimulation.ui\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
@@ -23,6 +27,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AnimalBase.cs",
+              "DocumentMoniker": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\FarmSimulation.Data\\Models\\AnimalBase.cs",
+              "RelativeDocumentMoniker": "FarmSimulation.Data\\Models\\AnimalBase.cs",
+              "ToolTip": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\FarmSimulation.Data\\Models\\AnimalBase.cs",
+              "RelativeToolTip": "FarmSimulation.Data\\Models\\AnimalBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T07:52:35.945Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "MainForm.cs [Tasar\u0131m]",
               "DocumentMoniker": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\Farm Simulation\\FarmSimulation.UI\\Forms\\MainForm.cs",
               "RelativeDocumentMoniker": "FarmSimulation.UI\\Forms\\MainForm.cs",

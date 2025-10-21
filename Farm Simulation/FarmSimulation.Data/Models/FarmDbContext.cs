@@ -1,4 +1,4 @@
-﻿﻿﻿using FarmSimulation.Data.Models;
+﻿﻿﻿﻿﻿using FarmSimulation.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FarmSimulation.Data
@@ -21,6 +21,10 @@ namespace FarmSimulation.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // AnimalBase için Primary Key yapılandırması
+            modelBuilder.Entity<AnimalBase>()
+                        .HasKey(a => a.Id);
+
             // AnimalBase soyut sınıfı için TPH (Table Per Hierarchy) yapılandırması
             modelBuilder.Entity<AnimalBase>()
                         .HasDiscriminator<string>("Ad")
@@ -31,6 +35,7 @@ namespace FarmSimulation.Data
 
             // AnimalLifecycle yapılandırması
             modelBuilder.Entity<AnimalLifecycle>()
+                        .ToTable("AnimalLifecycle")
                         .HasKey(l => l.AnimalId);
 
             modelBuilder.Entity<AnimalLifecycle>()
@@ -38,6 +43,14 @@ namespace FarmSimulation.Data
                         .WithOne(a => a.Lifecycle)
                         .HasForeignKey<AnimalLifecycle>(l => l.AnimalId)
                         .OnDelete(DeleteBehavior.Cascade);
+
+            // Product yapılandırması
+            modelBuilder.Entity<Product>()
+                        .HasKey(p => p.Id);
+
+            // Cash yapılandırması
+            modelBuilder.Entity<Cash>()
+                        .HasKey(c => c.Id);
 
             base.OnModelCreating(modelBuilder);
         }
