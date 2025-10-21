@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using FarmSimulation.Data;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using FarmSimulation.Data;
 using FarmSimulation.Data.Models;
 using static FarmSimulation.Data.Models.AnimalBase;
 
@@ -70,6 +70,28 @@ namespace FarmSimulation.Business.Services
             return _context.Products.ToList();
         }
 
+        // Ürünleri isme göre grupla
+        public Dictionary<string, List<Product>> GetProductsByType()
+        {
+            return _context.Products
+                .GroupBy(p => p.Ad)
+                .ToDictionary(g => g.Key, g => g.ToList());
+        }
+
+        // Ürün istatistikleri
+        public Dictionary<string, int> GetProductStatistics()
+        {
+            return _context.Products
+                .GroupBy(p => p.Ad)
+                .ToDictionary(g => g.Key, g => g.Sum(p => p.Miktar));
+        }
+
+        // Toplam ürün değeri
+        public decimal GetTotalProductValue()
+        {
+            return _context.Products.Sum(p => p.ToplamTutar);
+        }
+
         // Kasa bilgisi
         public decimal GetCash()
         {
@@ -80,6 +102,40 @@ namespace FarmSimulation.Business.Services
         // Ürün toplama
         public void CollectProducts()
         {
+            // Önce mevcut ürünleri birleştir (veritabanında aynı türdeki farklı satırları tek satıra indir)
+            var allProducts = _context.Products.ToList();
+            var groupedProducts = allProducts.GroupBy(p => p.Ad).ToList();
+            
+            foreach (var group in groupedProducts)
+            {
+                if (group.Count() > 1)
+                {
+                    // Birden fazla satır varsa, hepsini birleştir
+                    var firstProduct = group.First();
+                    var otherProducts = group.Skip(1).ToList();
+                    
+                    foreach (var otherProduct in otherProducts)
+                    {
+                        firstProduct.Miktar += otherProduct.Miktar;
+                        firstProduct.ToplamTutar += otherProduct.ToplamTutar;
+                        _context.Products.Remove(otherProduct);
+                    }
+                    
+                    firstProduct.HayvanId = null; // HayvanId'yi temizle
+                    _context.Products.Update(firstProduct);
+                }
+                else
+                {
+                    // Tek satır varsa sadece HayvanId'yi temizle
+                    var singleProduct = group.First();
+                    singleProduct.HayvanId = null;
+                    _context.Products.Update(singleProduct);
+                }
+            }
+            
+            _context.SaveChanges();
+            
+            // Şimdi yeni ürünleri topla
             var animals = _context.Animals.ToList();
 
             foreach (var animal in animals)
@@ -91,7 +147,22 @@ namespace FarmSimulation.Business.Services
                 var product = animal.ÜrünÜret();
                 if (product != null)
                 {
-                    _context.Products.Add(product);
+                    // Aynı türdeki ürünü bul (HayvanId'ye bakmadan, sadece Ad'a göre)
+                    var existingProduct = _context.Products
+                        .FirstOrDefault(p => p.Ad == product.Ad);
+                    
+                    if (existingProduct != null)
+                    {
+                        existingProduct.Miktar += product.Miktar;
+                        existingProduct.ToplamTutar += product.ToplamTutar;
+                        _context.Products.Update(existingProduct);
+                    }
+                    else
+                    {
+                        // Yeni ürün ekle - HayvanId null olsun
+                        product.HayvanId = null;
+                        _context.Products.Add(product);
+                    }
                 }
             }
 
@@ -102,13 +173,13 @@ namespace FarmSimulation.Business.Services
         public void SellAllProducts()
         {
             var products = _context.Products.ToList();
-            decimal total = products.Sum(p => p.Tutar * p.Miktar);
+            decimal total = products.Sum(p => p.ToplamTutar);
 
             // Kasa güncelle
             var cash = _context.Cash.FirstOrDefault();
             if (cash == null)
             {
-                cash = new Cash { Tutar = (int)total };
+                cash = new Cash { Tutar = total };
                 _context.Cash.Add(cash);
             }
             else
@@ -122,6 +193,30 @@ namespace FarmSimulation.Business.Services
             _context.SaveChanges();
         }
 
+        // Seçili ürünleri sat
+        public void SellSelectedProducts(List<int> productIds)
+        {
+            var products = _context.Products.Where(p => productIds.Contains(p.Id)).ToList();
+            decimal total = products.Sum(p => p.ToplamTutar);
+
+            // Kasa güncelle
+            var cash = _context.Cash.FirstOrDefault();
+            if (cash == null)
+            {
+                cash = new Cash { Tutar = total };
+                _context.Cash.Add(cash);
+            }
+            else
+            {
+                cash.Tutar += total;
+                _context.Cash.Update(cash);
+            }
+
+            // Seçili ürünleri sil
+            _context.Products.RemoveRange(products);
+            _context.SaveChanges();
+        }
+
         // Hayvan silme
         public void DeleteAnimal(int id)
         {
@@ -129,6 +224,18 @@ namespace FarmSimulation.Business.Services
             if (animal != null)
             {
                 _context.Animals.Remove(animal);
+                _context.SaveChanges();
+            }
+        }
+
+        // Seçili hayvanları sil
+        public void DeleteSelectedAnimals(List<int> animalIds)
+        {
+            var animals = _context.Animals.Where(a => animalIds.Contains(a.Id)).ToList();
+            
+            if (animals.Any())
+            {
+                _context.Animals.RemoveRange(animals);
                 _context.SaveChanges();
             }
         }

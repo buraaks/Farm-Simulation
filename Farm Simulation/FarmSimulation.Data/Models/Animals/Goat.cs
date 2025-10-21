@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿namespace FarmSimulation.Data.Models
+﻿﻿﻿﻿﻿﻿namespace FarmSimulation.Data.Models
 {
     public class Goat : AnimalBase
     {
@@ -12,7 +12,8 @@
             {
                 Ad = "Keçi Sütü",
                 Miktar = 1,
-                Tutar = 12m
+                Fiyat = 12m,
+                ToplamTutar = 12m
             };
         }
     }

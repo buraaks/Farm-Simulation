@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿using System.ComponentModel.DataAnnotations;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FarmSimulation.Data.Models
@@ -54,7 +54,8 @@ namespace FarmSimulation.Data.Models
             if (!Yaşıyor())
                 return null;
 
-            return Produce();
+            var product = Produce();
+            return product;
         }
 
         // Her hayvan kendi ürününü üretecek

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿using FarmSimulation.Business.Services;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using FarmSimulation.Business.Services;
 using FarmSimulation.Data.Models;
 
 
@@ -64,12 +64,8 @@ namespace Farm_Simulation.Forms
 
             // Kasa güncelle
             var cash = _farmService.GetCash();
-            lblCash.Text = $"Para: {cash} ₺";
-
-            // Yaşam süresi bilgilerini güncelle
-            int aliveCount = _farmService.GetAliveAnimalCount();
-            int deadCount = _farmService.GetDeadAnimalCount();
-            this.Text = $"Farm Simulation - Yaşayan: {aliveCount} | Ölü: {deadCount}";
+            var totalProductValue = _farmService.GetTotalProductValue();
+            lblCash.Text = $"Para: {cash:F2} ₺ | Ürün Değeri: {totalProductValue:F2} ₺";
         }
 
         private void btnCollectProducts_Click(object sender, EventArgs e)
@@ -125,6 +121,69 @@ namespace Farm_Simulation.Forms
         {
             _farmService.ResetCash();
             RefreshUI();
+        }
+
+        private void btnSellSelected_Click(object sender, EventArgs e)
+        {
+            if (dgvProducts.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Önce satmak istediğiniz ürünleri seçin.", "Uyarı",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var selectedProductIds = new List<int>();
+            foreach (DataGridViewRow row in dgvProducts.SelectedRows)
+            {
+                if (row.DataBoundItem is Product product)
+                {
+                    selectedProductIds.Add(product.Id);
+                }
+            }
+
+            if (selectedProductIds.Any())
+            {
+                _farmService.SellSelectedProducts(selectedProductIds);
+                MessageBox.Show($"{selectedProductIds.Count} ürün satıldı.", "Başarılı",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                RefreshUI();
+            }
+        }
+
+        private void btnDeleteSelected_Click(object sender, EventArgs e)
+        {
+            if (dgvAnimals.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Önce silmek istediğiniz hayvanları seçin.", "Uyarı",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var selectedAnimalIds = new List<int>();
+            foreach (DataGridViewRow row in dgvAnimals.SelectedRows)
+            {
+                if (row.DataBoundItem is AnimalBase animal)
+                {
+                    selectedAnimalIds.Add(animal.Id);
+                }
+            }
+
+            if (selectedAnimalIds.Any())
+            {
+                var result = MessageBox.Show(
+                    $"{selectedAnimalIds.Count} hayvan silinecek. Emin misiniz?",
+                    "Onay",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    _farmService.DeleteSelectedAnimals(selectedAnimalIds);
+                    MessageBox.Show($"{selectedAnimalIds.Count} hayvan silindi.", "Başarılı",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    RefreshUI();
+                }
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿﻿namespace Farm_Simulation.Forms
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace Farm_Simulation.Forms
 {
     partial class MainForm
     {
@@ -50,6 +50,8 @@
             label2 = new Label();
             label3 = new Label();
             btnZeroMoney = new Button();
+            btnSellSelected = new Button();
+            btnDeleteSelected = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudAge).BeginInit();
@@ -61,6 +63,7 @@
             dgvAnimals.Location = new Point(350, 12);
             dgvAnimals.Name = "dgvAnimals";
             dgvAnimals.RowHeadersWidth = 51;
+            dgvAnimals.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAnimals.Size = new Size(713, 260);
             dgvAnimals.TabIndex = 0;
             // 
@@ -70,6 +73,7 @@
             dgvProducts.Location = new Point(350, 301);
             dgvProducts.Name = "dgvProducts";
             dgvProducts.RowHeadersWidth = 51;
+            dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProducts.Size = new Size(713, 260);
             dgvProducts.TabIndex = 1;
             // 
@@ -94,7 +98,7 @@
             // 
             // btnCollectProducts
             // 
-            btnCollectProducts.Location = new Point(12, 482);
+            btnCollectProducts.Location = new Point(12, 443);
             btnCollectProducts.Name = "btnCollectProducts";
             btnCollectProducts.Size = new Size(159, 29);
             btnCollectProducts.TabIndex = 4;
@@ -104,11 +108,11 @@
             // 
             // btnSellAll
             // 
-            btnSellAll.Location = new Point(181, 482);
+            btnSellAll.Location = new Point(12, 478);
             btnSellAll.Name = "btnSellAll";
             btnSellAll.Size = new Size(159, 29);
             btnSellAll.TabIndex = 6;
-            btnSellAll.Text = "Ürünleri Sat";
+            btnSellAll.Text = "Tümünü Sat";
             btnSellAll.UseVisualStyleBackColor = true;
             btnSellAll.Click += btnSellAll_Click;
             // 
@@ -183,11 +187,33 @@
             btnZeroMoney.UseVisualStyleBackColor = true;
             btnZeroMoney.Click += btnZeroMoney_Click;
             // 
+            // btnSellSelected
+            // 
+            btnSellSelected.Location = new Point(181, 478);
+            btnSellSelected.Name = "btnSellSelected";
+            btnSellSelected.Size = new Size(159, 29);
+            btnSellSelected.TabIndex = 15;
+            btnSellSelected.Text = "Seçilileri Sat";
+            btnSellSelected.UseVisualStyleBackColor = true;
+            btnSellSelected.Click += btnSellSelected_Click;
+            // 
+            // btnDeleteSelected
+            // 
+            btnDeleteSelected.Location = new Point(181, 443);
+            btnDeleteSelected.Name = "btnDeleteSelected";
+            btnDeleteSelected.Size = new Size(159, 29);
+            btnDeleteSelected.TabIndex = 17;
+            btnDeleteSelected.Text = "Seçili Hayvanları Sil";
+            btnDeleteSelected.UseVisualStyleBackColor = true;
+            btnDeleteSelected.Click += btnDeleteSelected_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1075, 579);
+            Controls.Add(btnDeleteSelected);
+            Controls.Add(btnSellSelected);
             Controls.Add(btnZeroMoney);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -203,7 +229,7 @@
             Controls.Add(dgvProducts);
             Controls.Add(dgvAnimals);
             Name = "MainForm";
-            Text = "MainForm";
+            Text = "Farm Simulation";
             Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
@@ -228,5 +254,7 @@
         private Label label2;
         private Label label3;
         private Button btnZeroMoney;
+        private Button btnSellSelected;
+        private Button btnDeleteSelected;
     }
 }

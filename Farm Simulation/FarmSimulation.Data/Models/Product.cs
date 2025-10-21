@@ -1,4 +1,4 @@
-﻿﻿using System.ComponentModel.DataAnnotations;
+﻿﻿﻿﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FarmSimulation.Data.Models
@@ -14,6 +14,14 @@ namespace FarmSimulation.Data.Models
         
         public int Miktar { get; set; }
         
-        public decimal Tutar { get; set; } 
+        public decimal Fiyat { get; set; }
+        
+        public decimal ToplamTutar { get; set; }
+        
+        public int? HayvanId { get; set; }
+        
+        // Navigation property
+        [ForeignKey("HayvanId")]
+        public AnimalBase? Hayvan { get; set; }
     }
 }

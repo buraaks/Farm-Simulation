@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿using FarmSimulation.Data.Models;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿using FarmSimulation.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FarmSimulation.Data
@@ -47,6 +47,12 @@ namespace FarmSimulation.Data
             // Product yapılandırması
             modelBuilder.Entity<Product>()
                         .HasKey(p => p.Id);
+            
+            modelBuilder.Entity<Product>()
+                        .HasOne(p => p.Hayvan)
+                        .WithMany()
+                        .HasForeignKey(p => p.HayvanId)
+                        .OnDelete(DeleteBehavior.SetNull);
 
             // Cash yapılandırması
             modelBuilder.Entity<Cash>()
