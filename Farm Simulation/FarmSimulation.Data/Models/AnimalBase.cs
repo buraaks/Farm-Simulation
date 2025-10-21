@@ -1,40 +1,54 @@
-﻿using FarmSimulation.Data.Models;
-using System;
-
-namespace FarmSimulation.Data.Models
+﻿﻿﻿﻿﻿namespace FarmSimulation.Data.Models
 {
     public abstract class AnimalBase
     {
-        public Guid Id { get; private set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public Sex Sex { get; set; }
-        public AnimalType Type { get; protected set; }
+        public int Id { get; set; }
+        public string Ad { get; set; } = "";
+        public int Yaş { get; set; }
+        public Sex Cinsiyet { get; set; }
 
-        public TimeSpan LifeSpan { get; protected set; }
-        public TimeSpan ProduceInterval { get; protected set; }
-        public DateTime BirthDate { get; private set; }
-        public DateTime LastProduceTime { get; protected set; }
+        // Navigation property for lifecycle
+        public AnimalLifecycle? Lifecycle { get; set; }
 
-        protected AnimalBase(string name, int age, Sex sex)
+        protected AnimalBase()
         {
-            Id = Guid.NewGuid();
-            Name = name;
-            Age = age;
-            Sex = sex;
-            BirthDate = DateTime.Now;
-            LastProduceTime = DateTime.Now;
         }
 
-        public bool IsAlive() =>
-            DateTime.Now - BirthDate < LifeSpan;
+        // Hayvan yaşıyor mu kontrolü
+        public bool Yaşıyor()
+        {
+            if (Lifecycle == null)
+                return true; // Lifecycle yoksa varsayılan olarak yaşıyor
+            
+            return !Lifecycle.Ölü && Yaş < Lifecycle.MaksimumYaş;
+        }
 
-        public bool CanProduce() =>
-            IsAlive() && (DateTime.Now - LastProduceTime >= ProduceInterval);
+        // Yaş artırma metodu
+        public void YaşArtır()
+        {
+            if (Lifecycle == null || Lifecycle.Ölü)
+                return;
 
-        public abstract Product Produce();
+            Yaş++;
+            Lifecycle.SonYaşArtışZamanı = DateTime.Now;
+            
+            // Maksimum yaşa ulaştıysa öldür
+            if (Yaş >= Lifecycle.MaksimumYaş)
+            {
+                Lifecycle.Ölü = true;
+            }
+        }
 
-        public void IncreaseAge(int days) =>
-            Age += days;
+        // Ürün üretimi - sadece yaşayan hayvanlar üretebilir
+        public Product? ÜrünÜret()
+        {
+            if (!Yaşıyor())
+                return null;
+
+            return Produce();
+        }
+
+        // Her hayvan kendi ürününü üretecek
+        protected abstract Product? Produce();
     }
 }
