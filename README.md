@@ -2,13 +2,13 @@
 
 **.NET 9** tabanlı masaüstü çiftlik yönetim simülasyonu uygulaması.
 
-## 📋 Genel Bakış
+##  Genel Bakış
 
 Bu proje, hayvan yetiştirme, ürün toplama ve satış işlemlerini simüle eden bir çiftlik yönetim uygulamasıdır. Windows Forms kullanılarak geliştirilmiştir.
 
-## ✨ Özellikler
+##  Özellikler
 
-### 🐔 Hayvan Yönetimi
+###  Hayvan Yönetimi
 - **4 Hayvan Türü**: Tavuk, İnek, Koyun, Keçi
 - **Yaşlanma Sistemi**: Her 10 saniyede bir otomatik yaşlanma
 - **Yaşam Süresi**: Her hayvan türünün kendine özgü maksimum yaşı
@@ -19,7 +19,7 @@ Bu proje, hayvan yetiştirme, ürün toplama ve satış işlemlerini simüle ede
 - **Çoklu Seçim**: Birden fazla hayvanı seçerek silme
 - **Otomatik Temizleme**: Ölü hayvanlar ürün toplarken otomatik kaldırılır
 
-### 🥚 Ürün Sistemi
+###  Ürün Sistemi
 - **Otomatik Gruplama**: Aynı türdeki ürünler tek satırda toplanır
 - **Ürün Türleri**:
   - Yumurta (Tavuk) - 2.5₺
@@ -29,12 +29,12 @@ Bu proje, hayvan yetiştirme, ürün toplama ve satış işlemlerini simüle ede
 - **Seçili Satış**: İstediğiniz ürünleri seçerek satabilirsiniz
 - **Toplu Satış**: Tüm ürünleri tek seferde satma
 
-### 💰 Kasa Yönetimi
+###  Kasa Yönetimi
 - Ürün satışlarından gelir
 - Para sıfırlama özelliği
 - Toplam ürün değeri gösterimi
 
-## 🗂️ Proje Yapısı
+##  Proje Yapısı
 
 ```
 Farm-Simulation/
@@ -56,7 +56,7 @@ Farm-Simulation/
 └── README.md
 ```
 
-## 🛠️ Teknolojiler
+##  Teknolojiler
 
 - **.NET 9.0**
 - **C# 13**
@@ -85,7 +85,7 @@ Farm-Simulation/
 Server=JEFT;Database=FarmSimulation;Trusted_Connection=True;TrustServerCertificate=True;
 ```
 
-## 🚀 Kurulum
+##  Kurulum
 
 ### Gereksinimler
 - .NET 9.0 SDK
@@ -116,7 +116,7 @@ Server=JEFT;Database=FarmSimulation;Trusted_Connection=True;TrustServerCertifica
    dotnet run
    ```
 
-## 🎮 Kullanım
+##  Kullanım
 
 ### Hayvan Ekleme
 1. Tür seçin (Tavuk, İnek, Koyun, Keçi)
@@ -139,7 +139,7 @@ Server=JEFT;Database=FarmSimulation;Trusted_Connection=True;TrustServerCertifica
 2. "Seçili Hayvanları Sil" butonuna basın
 3. Onaylayın
 
-## 📊 Özellik Detayları
+##  Özellik Detayları
 
 ### Otomatik Yaşlanma
 - Her 10 saniyede bir çalışan timer
@@ -156,12 +156,12 @@ Server=JEFT;Database=FarmSimulation;Trusted_Connection=True;TrustServerCertifica
 - Cascade Delete (Hayvan silinince lifecycle kaydı da silinir)
 - Null-safe navigation properties
 
-## 📚 Ek Dökümanlar
+##  Ek Dökümanlar
 
 - **[URUN_SISTEMI.md](Farm%20Simulation/URUN_SISTEMI.md)** - Detaylı ürün sistemi dokümantasyonu
 - **[HIZLI_BASLANGIC.md](Farm%20Simulation/HIZLI_BASLANGIC.md)** - Hızlı başlangıç kılavuzu
 
-## 🔧 Geliştirme
+##  Geliştirme
 
 ### Mimari Prensipler
 - **Katmanlı Mimari**: UI, Business, Data katmanları ayrı
@@ -175,11 +175,11 @@ Server=JEFT;Database=FarmSimulation;Trusted_Connection=True;TrustServerCertifica
 3. `Produce()` metodunu override et
 4. `FarmDbContext`'te discriminator ekle
 
-## 🐛 Bilinen Sorunlar
+##  Bilinen Sorunlar
 
 Şu anda bilinen bir sorun bulunmamaktadır.
 
-## 📞 İletişim
+##  İletişim
 
 Sorularınız için Issue açabilirsiniz.
 
