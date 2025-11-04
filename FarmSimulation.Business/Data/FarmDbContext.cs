@@ -3,9 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FarmSimulation.Business.Data
 {
-    /// <summary>
-    /// Tarım simülasyonu için veritabanı bağlamını temsil eder
-    /// </summary>
+    // Tarım simülasyonu için veritabanı bağlamını temsil eder
     public class FarmDbContext : DbContext
     {
         public DbSet<Animal> Animals { get; set; }

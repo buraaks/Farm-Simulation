@@ -3,9 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FarmSimulation.Entities
 {
-    /// <summary>
-    /// Tarım simülasyonundaki bir ürünü temsil eder
-    /// </summary>
+    // Tarım simülasyonundaki bir ürünü temsil eder
     public class Product
     {
         [Key]

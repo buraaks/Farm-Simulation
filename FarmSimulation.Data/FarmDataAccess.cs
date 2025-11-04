@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace FarmSimulation.Data
 {
-    /// <summary>
-    /// Tarım simülasyonu için veri erişim katmanını temsil eder
-    /// </summary>
+    // Tarım simülasyonu için veri erişim katmanını temsil eder
     public class FarmDataAccess
     {
         private readonly DbContext _context;

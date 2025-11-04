@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace FarmSimulation.Business.Services
 {
-    /// <summary>
-    /// Tarım simülasyonu için iş mantığını yönetir
-    /// </summary>
+    // Tarım simülasyonu için iş mantığını yönetir
     public class FarmBusinessService
     {
         private readonly FarmDataAccess _dataAccess;
@@ -83,10 +81,8 @@ namespace FarmSimulation.Business.Services
             return productId;
         }
 
-        /// <summary>
-        /// Tarımdaki ve veritabanındaki mevcut bir ürünü günceller
-        /// </summary>
-        /// <param name="product">Güncellenecek ürün</param>
+        // Tarımdaki ve veritabanındaki mevcut bir ürünü günceller
+        // product: Güncellenecek ürün
         public async Task UpdateProductAsync(Product product)
         {
             await _dataAccess.UpdateProductAsync(product);
@@ -105,10 +101,8 @@ namespace FarmSimulation.Business.Services
             }
         }
 
-        /// <summary>
-        /// Tarımdan ve veritabanından bir ürünü siler
-        /// </summary>
-        /// <param name="productId">Silinecek ürünün ID'si</param>
+        // Tarımdan ve veritabanından bir ürünü siler
+        // productId: Silinecek ürünün ID'si
         public async Task DeleteProductAsync(int productId)
         {
             await _dataAccess.DeleteProductAsync(productId);
@@ -117,21 +111,17 @@ namespace FarmSimulation.Business.Services
             Products.RemoveAll(p => p.Id == productId);
         }
 
-        /// <summary>
-        /// Tarımdan ID'ye göre bir hayvan alır
-        /// </summary>
-        /// <param name="animalId">Alınacak hayvanın ID'si</param>
-        /// <returns>Hayvan nesnesi</returns>
+        // Tarımdan ID'ye göre bir hayvan alır
+        // animalId: Alınacak hayvanın ID'si
+        // Hayvan nesnesi
         public Animal GetAnimalById(int animalId)
         {
             return Animals.FirstOrDefault(a => a.Id == animalId) ?? new Animal();
         }
 
-        /// <summary>
-        /// Tarımdan ID'ye göre bir ürün alır
-        /// </summary>
-        /// <param name="productId">Alınacak ürünün ID'si</param>
-        /// <returns>Ürün nesnesi</returns>
+        // Tarımdan ID'ye göre bir ürün alır
+        // productId: Alınacak ürünün ID'si
+        // Ürün nesnesi
         public Product GetProductById(int productId)
         {
             return Products.FirstOrDefault(p => p.Id == productId) ?? new Product();

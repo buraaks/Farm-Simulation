@@ -3,9 +3,7 @@ using System;
 
 namespace FarmSimulation.Data
 {
-    /// <summary>
-    /// Tarım simülasyonu için bir veritabanı servisi temsil eder
-    /// </summary>
+    // Tarım simülasyonu için bir veritabanı servisi temsil eder
     public class DatabaseService
     {
         private readonly DbContext _context;
