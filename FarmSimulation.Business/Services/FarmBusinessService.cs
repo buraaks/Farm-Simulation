@@ -13,6 +13,7 @@ namespace FarmSimulation.Business.Services
     {
         private readonly FarmDataAccess _dataAccess;
         private DateTime _lastSimulatedTime;
+        private Dictionary<int, double> _animalTimeAccumulator = new Dictionary<int, double>(); // Her hayvan için zaman birikimi
         public FarmDataAccess dataAccess => _dataAccess;
         public List<Animal> Animals { get; private set; }
         public List<Product> Products { get; private set; }
@@ -133,7 +134,7 @@ namespace FarmSimulation.Business.Services
             var timeSinceLastSimulation = currentTime - _lastSimulatedTime;
             _lastSimulatedTime = currentTime;
             
-            const int SECONDS_PER_GAME_DAY = 300;
+            const int SECONDS_PER_GAME_DAY = 30; // 30 saniyede 1 oyun günü (daha dengeli yaşlanma)
 
             foreach (var animal in Animals.ToList())
             {
@@ -141,27 +142,39 @@ namespace FarmSimulation.Business.Services
                 {
                     if (animal.CanProduce && animal.ProductProductionTime > 0)
                     {
-                        animal.ProductProductionProgress += 100 / animal.ProductProductionTime;
-
-                        if (animal.ProductProductionProgress >= 100)
+                        // Eğer ilerleme %100 değilse, üretim yapmaya devam et
+                        if (animal.ProductProductionProgress < 100)
                         {
-                            var product = CreateProductForAnimal(animal);
-                            await AddProductAsync(product);
+                            animal.ProductProductionProgress += 100 / animal.ProductProductionTime;
 
-                            animal.ProductProductionProgress = 0;
-                            
-                            await UpdateAnimalAsync(animal);
+                            // Maksimum %100'e ulaşmasını sağla
+                            if (animal.ProductProductionProgress > 100)
+                            {
+                                animal.ProductProductionProgress = 100;
+                            }
                         }
+                        // Eğer ilerleme zaten %100 ise, üretim durmuş olur, ilerleme sabit kalır
                     }
                 }
                 
                 if (animal.IsAlive) 
                 {
-                    int daysToAge = (int)(timeSinceLastSimulation.TotalSeconds / SECONDS_PER_GAME_DAY);
-                    
-                    if (daysToAge > 0)
+                    // Zaman birikimini hesapla
+                    if (!_animalTimeAccumulator.ContainsKey(animal.Id))
                     {
+                        _animalTimeAccumulator[animal.Id] = 0;
+                    }
+                    
+                    _animalTimeAccumulator[animal.Id] += timeSinceLastSimulation.TotalSeconds;
+                    
+                    // Yeterli zaman biriktiğinde yaş artışı yap
+                    if (_animalTimeAccumulator[animal.Id] >= SECONDS_PER_GAME_DAY)
+                    {
+                        int daysToAge = (int)(_animalTimeAccumulator[animal.Id] / SECONDS_PER_GAME_DAY);
                         animal.Age += daysToAge;
+                        
+                        // Kullanılmayan zamanı tekrar biriktiriciya ekle
+                        _animalTimeAccumulator[animal.Id] %= SECONDS_PER_GAME_DAY;
                     }
                 }
                 
@@ -217,9 +230,9 @@ namespace FarmSimulation.Business.Services
         {
             return animalType.ToLower() switch
             {
-                "chicken" => 0.5m,
-                "cow" => 2.5m,
-                "sheep" => 3.0m,
+                "chicken" => 1.0m, // Tavuk yumurtası fiyatı arttı
+                "cow" => 5.0m, // İnek sütü fiyatı arttı
+                "sheep" => 8.0m, // Koyun yünü fiyatı arttı
                 _ => 0m
             };
         }
@@ -269,15 +282,15 @@ namespace FarmSimulation.Business.Services
             {
                 case "chicken":
                     animal.MaxAge = 15;
-                    animal.ProductProductionTime = 30;
+                    animal.ProductProductionTime = 15; // 30 saniyede 1 ürün (3 ayda bir)
                     break;
                 case "cow":
                     animal.MaxAge = 20;
-                    animal.ProductProductionTime = 60;
+                    animal.ProductProductionTime = 45; // 45 saniyede 1 ürün (9 ayda bir)
                     break;
                 case "sheep":
                     animal.MaxAge = 25;
-                    animal.ProductProductionTime = 90;
+                    animal.ProductProductionTime = 60; // 60 saniyede 1 ürün (1.2 yılda bir)
                     break;
                 default:
                     animal.MaxAge = 10;
@@ -300,11 +313,13 @@ namespace FarmSimulation.Business.Services
 
         public async Task<Product> CollectProductFromAnimalAsync(Animal animal)
         {
-            if (animal != null && animal.IsAlive && animal.CanProduce)
+            // Sadece üretimi tamamlanmış (yani %100 ilerleme yapılmış) ve canlı olan hayvandan ürün toplanabilir
+            if (animal != null && animal.IsAlive && animal.CanProduce && animal.ProductProductionProgress >= 100)
             {
                 var product = CreateProductForAnimal(animal);
                 await AddProductAsync(product);
                 
+                // Toplama işlemi bittikten sonra ilerlemeyi sıfırla
                 animal.ProductProductionProgress = 0;
                 
                 await UpdateAnimalAsync(animal);
@@ -318,10 +333,10 @@ namespace FarmSimulation.Business.Services
         {
             var collectedProducts = new List<Product>();
             
-            foreach (var animal in Animals.Where(a => a.IsAlive && a.CanProduce).ToList())
+            foreach (var animal in Animals.Where(a => a.IsAlive && a.CanProduce && a.ProductProductionProgress >= 100).ToList())
             {
                 var product = await CollectProductFromAnimalAsync(animal);
-                if (product != null)
+                if (product != null && product.Name != "Unknown Product")
                 {
                     collectedProducts.Add(product);
                 }

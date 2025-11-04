@@ -12,8 +12,8 @@ namespace FarmSimulation.UI.Forms
 
         public BuyAnimalForm(FarmBusinessService businessService)
         {
-            InitializeComponent();
             this.businessService = businessService;
+            InitializeComponent();
             UpdatePrice();
         }
 
@@ -34,9 +34,8 @@ namespace FarmSimulation.UI.Forms
 
         private decimal GetAnimalPrice(string? animalType)
         {
-            if (string.IsNullOrEmpty(animalType))
-                return 0m;
-                
+            if (string.IsNullOrEmpty(animalType)) return 0m;
+            if (businessService == null) return 0m; 
             return businessService.GetAnimalPrice(animalType);
         }
 

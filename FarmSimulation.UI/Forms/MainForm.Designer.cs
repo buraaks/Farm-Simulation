@@ -22,115 +22,250 @@ namespace FarmSimulation.UI.Forms
         // the contents of this method with the code editor.
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 750);
-            this.Text = "Farm Simulation";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            
-            // Create animals grid
-            this.animalsGrid = new DataGridView();
-            this.animalsGrid.Location = new System.Drawing.Point(20, 20);
-            this.animalsGrid.Size = new System.Drawing.Size(600, 200);
-            this.animalsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.animalsGrid.AllowUserToAddRows = false;
-            this.animalsGrid.AllowUserToDeleteRows = false;
-            this.animalsGrid.ReadOnly = true;
-
-            // Add columns to animals grid
-            this.animalsGrid.Columns.Add("Id", "ID");
-            this.animalsGrid.Columns.Add("Name", "Name");
-            this.animalsGrid.Columns.Add("Age", "Age");
-            this.animalsGrid.Columns.Add("Type", "Type");
-            this.animalsGrid.Columns.Add("IsAlive", "Is Alive");
-            this.animalsGrid.Columns.Add("ProductionProgress", "Production Progress");
-
-            // Create products grid
-            this.productsGrid = new DataGridView();
-            this.productsGrid.Location = new System.Drawing.Point(20, 250);
-            this.productsGrid.Size = new System.Drawing.Size(600, 200);
-            this.productsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.productsGrid.AllowUserToAddRows = false;
-            this.productsGrid.AllowUserToDeleteRows = false;
-            this.productsGrid.ReadOnly = true;
-
-            // Add columns to products grid
-            this.productsGrid.Columns.Add("Id", "ID");
-            this.productsGrid.Columns.Add("ProductType", "Product Type");
-            this.productsGrid.Columns.Add("Quantity", "Quantity");
-            this.productsGrid.Columns.Add("Price", "Price");
-            this.productsGrid.Columns.Add("IsSold", "Is Sold");
-
-            // Create cash label
-            this.cashLabel = new Label();
-            this.cashLabel.Location = new System.Drawing.Point(650, 20);
-            this.cashLabel.Size = new System.Drawing.Size(300, 30);
-            this.cashLabel.Text = "Cash: 0.00 TL";
-            this.cashLabel.Font = new System.Drawing.Font("Arial", 12, System.Drawing.FontStyle.Bold);
-
-            // Create buttons
-            this.buyAnimalButton = new Button();
-            this.buyAnimalButton.Location = new System.Drawing.Point(650, 70);
-            this.buyAnimalButton.Size = new System.Drawing.Size(120, 40);
-            this.buyAnimalButton.Text = "Buy Animal";
-            this.buyAnimalButton.Font = new System.Drawing.Font("Arial", 10);
-            this.buyAnimalButton.Click += new System.EventHandler(this.BuyAnimalButton_Click);
-
-            this.collectSelectedAnimalProductsButton = new Button();
-            this.collectSelectedAnimalProductsButton.Location = new System.Drawing.Point(650, 120);
-            this.collectSelectedAnimalProductsButton.Size = new System.Drawing.Size(120, 40);
-            this.collectSelectedAnimalProductsButton.Text = "Collect Selected Animal Products";
-            this.collectSelectedAnimalProductsButton.Font = new System.Drawing.Font("Arial", 8);
-            this.collectSelectedAnimalProductsButton.Click += new System.EventHandler(this.CollectSelectedAnimalProductsButton_Click);
-
-            this.collectAllProductsButton = new Button();
-            this.collectAllProductsButton.Location = new System.Drawing.Point(650, 170);
-            this.collectAllProductsButton.Size = new System.Drawing.Size(120, 40);
-            this.collectAllProductsButton.Text = "Collect All Products";
-            this.collectAllProductsButton.Font = new System.Drawing.Font("Arial", 10);
-            this.collectAllProductsButton.Click += new System.EventHandler(this.CollectAllProductsButton_Click);
-
-            this.sellSelectedProductButton = new Button();
-            this.sellSelectedProductButton.Location = new System.Drawing.Point(650, 220);
-            this.sellSelectedProductButton.Size = new System.Drawing.Size(120, 40);
-            this.sellSelectedProductButton.Text = "Sell Selected Product";
-            this.sellSelectedProductButton.Font = new System.Drawing.Font("Arial", 9);
-            this.sellSelectedProductButton.Click += new System.EventHandler(this.SellSelectedProductButton_Click);
-
-            this.sellAllProductsButton = new Button();
-            this.sellAllProductsButton.Location = new System.Drawing.Point(650, 270);
-            this.sellAllProductsButton.Size = new System.Drawing.Size(120, 40);
-            this.sellAllProductsButton.Text = "Sell All Products";
-            this.sellAllProductsButton.Font = new System.Drawing.Font("Arial", 10);
-            this.sellAllProductsButton.Click += new System.EventHandler(this.SellAllProductsButton_Click);
-
-            this.sellProductsButton = new Button();
-            this.sellProductsButton.Location = new System.Drawing.Point(650, 320);
-            this.sellProductsButton.Size = new System.Drawing.Size(120, 40);
-            this.sellProductsButton.Text = "Sell Products";
-            this.sellProductsButton.Font = new System.Drawing.Font("Arial", 10);
-            this.sellProductsButton.Click += new System.EventHandler(this.SellProductsButton_Click);
-
-            this.deleteSoldProductsButton = new Button();
-            this.deleteSoldProductsButton.Location = new System.Drawing.Point(650, 370);
-            this.deleteSoldProductsButton.Size = new System.Drawing.Size(120, 40);
-            this.deleteSoldProductsButton.Text = "Delete Sold Products";
-            this.deleteSoldProductsButton.Font = new System.Drawing.Font("Arial", 10);
-            this.deleteSoldProductsButton.Click += new System.EventHandler(this.DeleteSoldProductsButton_Click);
-
-            // Add controls to the form
-            this.Controls.Add(this.animalsGrid);
-            this.Controls.Add(this.productsGrid);
-            this.Controls.Add(this.cashLabel);
-            this.Controls.Add(this.buyAnimalButton);
-            this.Controls.Add(this.collectSelectedAnimalProductsButton);
-            this.Controls.Add(this.collectAllProductsButton);
-            this.Controls.Add(this.sellSelectedProductButton);
-            this.Controls.Add(this.sellAllProductsButton);
-            this.Controls.Add(this.sellProductsButton);
-            this.Controls.Add(this.deleteSoldProductsButton);
-
-            this.ResumeLayout(false);
+            animalsGrid = new DataGridView();
+            productsGrid = new DataGridView();
+            cashLabel = new Label();
+            buyAnimalButton = new Button();
+            collectSelectedAnimalProductsButton = new Button();
+            collectAllProductsButton = new Button();
+            sellSelectedProductButton = new Button();
+            sellAllProductsButton = new Button();
+            sellProductsButton = new Button();
+            deleteSoldProductsButton = new Button();
+            resetGameButton = new Button();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn10 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn11 = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)animalsGrid).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)productsGrid).BeginInit();
+            SuspendLayout();
+            // 
+            // animalsGrid
+            // 
+            animalsGrid.AllowUserToAddRows = false;
+            animalsGrid.AllowUserToDeleteRows = false;
+            animalsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            animalsGrid.ColumnHeadersHeight = 29;
+            animalsGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6 });
+            animalsGrid.Location = new Point(20, 20);
+            animalsGrid.Name = "animalsGrid";
+            animalsGrid.ReadOnly = true;
+            animalsGrid.RowHeadersWidth = 51;
+            animalsGrid.Size = new Size(600, 200);
+            animalsGrid.TabIndex = 0;
+            // 
+            // productsGrid
+            // 
+            productsGrid.AllowUserToAddRows = false;
+            productsGrid.AllowUserToDeleteRows = false;
+            productsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            productsGrid.ColumnHeadersHeight = 29;
+            productsGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn10, dataGridViewTextBoxColumn11 });
+            productsGrid.Location = new Point(20, 250);
+            productsGrid.Name = "productsGrid";
+            productsGrid.ReadOnly = true;
+            productsGrid.RowHeadersWidth = 51;
+            productsGrid.Size = new Size(600, 200);
+            productsGrid.TabIndex = 1;
+            // 
+            // cashLabel
+            // 
+            cashLabel.Font = new Font("Arial", 12F, FontStyle.Bold);
+            cashLabel.Location = new Point(650, 20);
+            cashLabel.Name = "cashLabel";
+            cashLabel.Size = new Size(300, 30);
+            cashLabel.TabIndex = 2;
+            cashLabel.Text = "Cash: 0.00 TL";
+            // 
+            // buyAnimalButton
+            // 
+            buyAnimalButton.Font = new Font("Arial", 10F);
+            buyAnimalButton.Location = new Point(650, 70);
+            buyAnimalButton.Name = "buyAnimalButton";
+            buyAnimalButton.Size = new Size(120, 40);
+            buyAnimalButton.TabIndex = 3;
+            buyAnimalButton.Text = "Buy Animal";
+            buyAnimalButton.Click += BuyAnimalButton_Click;
+            // 
+            // collectSelectedAnimalProductsButton
+            // 
+            collectSelectedAnimalProductsButton.Font = new Font("Arial", 8F);
+            collectSelectedAnimalProductsButton.Location = new Point(650, 120);
+            collectSelectedAnimalProductsButton.Name = "collectSelectedAnimalProductsButton";
+            collectSelectedAnimalProductsButton.Size = new Size(120, 40);
+            collectSelectedAnimalProductsButton.TabIndex = 4;
+            collectSelectedAnimalProductsButton.Text = "Collect Selected Animal Products";
+            collectSelectedAnimalProductsButton.Click += CollectSelectedAnimalProductsButton_Click;
+            // 
+            // collectAllProductsButton
+            // 
+            collectAllProductsButton.Font = new Font("Arial", 10F);
+            collectAllProductsButton.Location = new Point(650, 170);
+            collectAllProductsButton.Name = "collectAllProductsButton";
+            collectAllProductsButton.Size = new Size(120, 40);
+            collectAllProductsButton.TabIndex = 5;
+            collectAllProductsButton.Text = "Collect All Products";
+            collectAllProductsButton.Click += CollectAllProductsButton_Click;
+            // 
+            // sellSelectedProductButton
+            // 
+            sellSelectedProductButton.Font = new Font("Arial", 9F);
+            sellSelectedProductButton.Location = new Point(650, 220);
+            sellSelectedProductButton.Name = "sellSelectedProductButton";
+            sellSelectedProductButton.Size = new Size(120, 40);
+            sellSelectedProductButton.TabIndex = 6;
+            sellSelectedProductButton.Text = "Sell Selected Product";
+            sellSelectedProductButton.Click += SellSelectedProductButton_Click;
+            // 
+            // sellAllProductsButton
+            // 
+            sellAllProductsButton.Font = new Font("Arial", 10F);
+            sellAllProductsButton.Location = new Point(650, 270);
+            sellAllProductsButton.Name = "sellAllProductsButton";
+            sellAllProductsButton.Size = new Size(120, 40);
+            sellAllProductsButton.TabIndex = 7;
+            sellAllProductsButton.Text = "Sell All Products";
+            sellAllProductsButton.Click += SellAllProductsButton_Click;
+            // 
+            // sellProductsButton
+            // 
+            sellProductsButton.Font = new Font("Arial", 10F);
+            sellProductsButton.Location = new Point(650, 320);
+            sellProductsButton.Name = "sellProductsButton";
+            sellProductsButton.Size = new Size(120, 40);
+            sellProductsButton.TabIndex = 8;
+            sellProductsButton.Text = "Sell Products";
+            sellProductsButton.Click += SellProductsButton_Click;
+            // 
+            // deleteSoldProductsButton
+            // 
+            deleteSoldProductsButton.Font = new Font("Arial", 10F);
+            deleteSoldProductsButton.Location = new Point(650, 370);
+            deleteSoldProductsButton.Name = "deleteSoldProductsButton";
+            deleteSoldProductsButton.Size = new Size(120, 40);
+            deleteSoldProductsButton.TabIndex = 9;
+            deleteSoldProductsButton.Text = "Delete Sold Products";
+            deleteSoldProductsButton.Click += DeleteSoldProductsButton_Click;
+            // 
+            // resetGameButton
+            // 
+            resetGameButton.BackColor = Color.OrangeRed;
+            resetGameButton.Font = new Font("Arial", 10F);
+            resetGameButton.Location = new Point(650, 420);
+            resetGameButton.Name = "resetGameButton";
+            resetGameButton.Size = new Size(120, 40);
+            resetGameButton.TabIndex = 10;
+            resetGameButton.Text = "Reset Game";
+            resetGameButton.UseVisualStyleBackColor = false;
+            resetGameButton.Click += ResetGameButton_Click;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.HeaderText = "ID";
+            dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.HeaderText = "Name";
+            dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.HeaderText = "Age";
+            dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewTextBoxColumn4.HeaderText = "Type";
+            dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewTextBoxColumn5.HeaderText = "Is Alive";
+            dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            dataGridViewTextBoxColumn6.HeaderText = "Production Progress";
+            dataGridViewTextBoxColumn6.MinimumWidth = 6;
+            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            dataGridViewTextBoxColumn7.HeaderText = "ID";
+            dataGridViewTextBoxColumn7.MinimumWidth = 6;
+            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            dataGridViewTextBoxColumn8.HeaderText = "Product Type";
+            dataGridViewTextBoxColumn8.MinimumWidth = 6;
+            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            dataGridViewTextBoxColumn9.HeaderText = "Quantity";
+            dataGridViewTextBoxColumn9.MinimumWidth = 6;
+            dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            dataGridViewTextBoxColumn10.HeaderText = "Price";
+            dataGridViewTextBoxColumn10.MinimumWidth = 6;
+            dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            dataGridViewTextBoxColumn10.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            dataGridViewTextBoxColumn11.HeaderText = "Is Sold";
+            dataGridViewTextBoxColumn11.MinimumWidth = 6;
+            dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            dataGridViewTextBoxColumn11.ReadOnly = true;
+            // 
+            // MainForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(808, 478);
+            Controls.Add(animalsGrid);
+            Controls.Add(productsGrid);
+            Controls.Add(cashLabel);
+            Controls.Add(buyAnimalButton);
+            Controls.Add(collectSelectedAnimalProductsButton);
+            Controls.Add(collectAllProductsButton);
+            Controls.Add(sellSelectedProductButton);
+            Controls.Add(sellAllProductsButton);
+            Controls.Add(sellProductsButton);
+            Controls.Add(deleteSoldProductsButton);
+            Controls.Add(resetGameButton);
+            Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Farm Simulation";
+            ((System.ComponentModel.ISupportInitialize)animalsGrid).EndInit();
+            ((System.ComponentModel.ISupportInitialize)productsGrid).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -145,6 +280,18 @@ namespace FarmSimulation.UI.Forms
         private Button sellAllProductsButton;
         private Button sellProductsButton;
         private Button deleteSoldProductsButton;
+        private Button resetGameButton;
         private System.Windows.Forms.Timer simulationTimer;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
     }
 }

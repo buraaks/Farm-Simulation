@@ -240,6 +240,63 @@ namespace FarmSimulation.UI.Forms
             await Task.Run(() => Invoke((MethodInvoker)UpdateUI));
         }
 
+        private async void ResetGameButton_Click(object? sender, EventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Oyunu sıfırlamak istediğinize emin misiniz?\nBu işlem tüm hayvanları, ürünleri ve nakit miktarını sıfırlayacak.",
+                "Oyunu Sıfırla",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                if (businessService != null)
+                {
+                    // Business servis içindeki verileri sıfırla
+                    businessService.Animals.Clear();
+                    businessService.Products.Clear();
+                    businessService.Cash.Amount = 1000m; // Başlangıç parası
+                    
+                    // Veritabanını da sıfırla
+                    await ResetDatabaseAsync();
+                    
+                    // UI'yi güncelle
+                    UpdateUI();
+                    
+                    MessageBox.Show("Oyun başarıyla sıfırlandı!", "Başarılı", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private async Task ResetDatabaseAsync()
+        {
+            if (dataAccess != null)
+            {
+                // Veritabanındaki tüm hayvanları sil
+                var allAnimals = await dataAccess.GetAllAnimalsAsync();
+                foreach (var animal in allAnimals)
+                {
+                    await dataAccess.DeleteAnimalAsync(animal.Id);
+                }
+
+                // Veritabanındaki tüm ürünleri sil
+                var allProducts = await dataAccess.GetAllProductsAsync();
+                foreach (var product in allProducts)
+                {
+                    await dataAccess.DeleteProductAsync(product.Id);
+                }
+
+                // Nakiti başlangıç değerine getir
+                var cash = await dataAccess.GetCashAsync();
+                cash.Amount = 1000m;
+                await dataAccess.UpdateCashAsync(cash);
+                
+                // Business servisi yeniden başlat
+                await businessService.InitializeAsync();
+            }
+        }
+
         private async void SimulationTimer_Tick(object? sender, EventArgs e)
         {
             if (businessService == null) return;
