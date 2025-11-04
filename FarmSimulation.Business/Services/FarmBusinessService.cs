@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace FarmSimulation.Business.Services
 {
     /// <summary>
-    /// Manages the business logic for the farm simulation using Entity Framework and SQL Server
+    /// Tarım simülasyonu için iş mantığını yönetir
     /// </summary>
     public class FarmBusinessService
     {
         private readonly FarmDataAccess _dataAccess;
         private DateTime _lastSimulatedTime;
-        public FarmDataAccess dataAccess => _dataAccess; // Public accessor for data access
+        public FarmDataAccess dataAccess => _dataAccess;
         public List<Animal> Animals { get; private set; }
         public List<Product> Products { get; private set; }
         public Cash Cash { get; private set; }
@@ -25,21 +25,15 @@ namespace FarmSimulation.Business.Services
             _dataAccess = dataAccess;
             Animals = new List<Animal>();
             Products = new List<Product>();
-            Cash = new Cash(); // Start with 0 cash as per requirements
+            Cash = new Cash();
             _lastSimulatedTime = DateTime.Now;
         }
 
-        /// <summary>
-        /// Initializes the farm data from the database
-        /// </summary>
         public async Task InitializeAsync()
         {
             await LoadDataFromDatabaseAsync();
         }
 
-        /// <summary>
-        /// Loads all data from the database
-        /// </summary>
         private async Task LoadDataFromDatabaseAsync()
         {
             Animals = await _dataAccess.GetAllAnimalsAsync();
@@ -47,10 +41,6 @@ namespace FarmSimulation.Business.Services
             Cash = await _dataAccess.GetCashAsync();
         }
 
-        /// <summary>
-        /// Adds a new animal to the farm and database
-        /// </summary>
-        /// <param name="animal">The animal to add</param>
         public async Task<int> AddAnimalAsync(Animal animal)
         {
             int animalId = await _dataAccess.AddAnimalAsync(animal);
@@ -58,15 +48,10 @@ namespace FarmSimulation.Business.Services
             return animalId;
         }
 
-        /// <summary>
-        /// Updates an existing animal in the farm and database
-        /// </summary>
-        /// <param name="animal">The animal to update</param>
         public async Task UpdateAnimalAsync(Animal animal)
         {
             await _dataAccess.UpdateAnimalAsync(animal);
             
-            // Update the animal in the local list as well
             var localAnimal = Animals.FirstOrDefault(a => a.Id == animal.Id);
             if (localAnimal != null)
             {
@@ -84,22 +69,13 @@ namespace FarmSimulation.Business.Services
             }
         }
 
-        /// <summary>
-        /// Deletes an animal from the farm and database
-        /// </summary>
-        /// <param name="animalId">The ID of the animal to delete</param>
         public async Task DeleteAnimalAsync(int animalId)
         {
             await _dataAccess.DeleteAnimalAsync(animalId);
             
-            // Remove the animal from the local list as well
             Animals.RemoveAll(a => a.Id == animalId);
         }
 
-        /// <summary>
-        /// Adds a new product to the farm and database
-        /// </summary>
-        /// <param name="product">The product to add</param>
         public async Task<int> AddProductAsync(Product product)
         {
             int productId = await _dataAccess.AddProductAsync(product);
@@ -108,14 +84,14 @@ namespace FarmSimulation.Business.Services
         }
 
         /// <summary>
-        /// Updates an existing product in the farm and database
+        /// Tarımdaki ve veritabanındaki mevcut bir ürünü günceller
         /// </summary>
-        /// <param name="product">The product to update</param>
+        /// <param name="product">Güncellenecek ürün</param>
         public async Task UpdateProductAsync(Product product)
         {
             await _dataAccess.UpdateProductAsync(product);
             
-            // Update the product in the local list as well
+            // Yerel listedeki ürünü de güncelle
             var localProduct = Products.FirstOrDefault(p => p.Id == product.Id);
             if (localProduct != null)
             {
@@ -130,86 +106,67 @@ namespace FarmSimulation.Business.Services
         }
 
         /// <summary>
-        /// Deletes a product from the farm and database
+        /// Tarımdan ve veritabanından bir ürünü siler
         /// </summary>
-        /// <param name="productId">The ID of the product to delete</param>
+        /// <param name="productId">Silinecek ürünün ID'si</param>
         public async Task DeleteProductAsync(int productId)
         {
             await _dataAccess.DeleteProductAsync(productId);
             
-            // Remove the product from the local list as well
+            // Ürünü yerel listeden de kaldır
             Products.RemoveAll(p => p.Id == productId);
         }
 
         /// <summary>
-        /// Gets an animal by ID from the farm
+        /// Tarımdan ID'ye göre bir hayvan alır
         /// </summary>
-        /// <param name="animalId">The ID of the animal to get</param>
-        /// <returns>The animal object</returns>
+        /// <param name="animalId">Alınacak hayvanın ID'si</param>
+        /// <returns>Hayvan nesnesi</returns>
         public Animal GetAnimalById(int animalId)
         {
             return Animals.FirstOrDefault(a => a.Id == animalId) ?? new Animal();
         }
 
         /// <summary>
-        /// Gets a product by ID from the farm
+        /// Tarımdan ID'ye göre bir ürün alır
         /// </summary>
-        /// <param name="productId">The ID of the product to get</param>
-        /// <returns>The product object</returns>
+        /// <param name="productId">Alınacak ürünün ID'si</param>
+        /// <returns>Ürün nesnesi</returns>
         public Product GetProductById(int productId)
         {
             return Products.FirstOrDefault(p => p.Id == productId) ?? new Product();
         }
 
-        /// <summary>
-        /// Simulates one tick of the farm simulation (e.g., 1 second)
-        /// </summary>
         public async Task SimulateTickAsync()
         {
-            int aliveAnimals = 0;
-            int deadAnimals = 0;
-            
-            // Calculate elapsed time since last simulation
             DateTime currentTime = DateTime.Now;
             var timeSinceLastSimulation = currentTime - _lastSimulatedTime;
             _lastSimulatedTime = currentTime;
             
-            // Define a threshold for aging - animals age 1 day every 300 seconds (5 minutes) of real time
-            // This can be tuned as needed for gameplay balance
-            const int SECONDS_PER_GAME_DAY = 300; // 5 minutes real time = 1 game day
+            const int SECONDS_PER_GAME_DAY = 300;
 
-            foreach (var animal in Animals.ToList()) // Use ToList() to avoid collection modification issues
+            foreach (var animal in Animals.ToList())
             {
                 if (animal.IsAlive)
                 {
-                    // Update product production progress
                     if (animal.CanProduce && animal.ProductProductionTime > 0)
                     {
-                        animal.ProductProductionProgress += 100 / animal.ProductProductionTime; // Increment progress based on time
+                        animal.ProductProductionProgress += 100 / animal.ProductProductionTime;
 
-                        // Check if product production is complete
                         if (animal.ProductProductionProgress >= 100)
                         {
-                            // Create a new product based on the animal type
                             var product = CreateProductForAnimal(animal);
                             await AddProductAsync(product);
 
-                            // Reset production progress
                             animal.ProductProductionProgress = 0;
                             
-                            // Update animal in database
                             await UpdateAnimalAsync(animal);
                         }
                     }
-                    
-                    aliveAnimals++;
                 }
                 
-                // Age the animal based on elapsed time since last simulation
-                // Only animals that are alive should age
                 if (animal.IsAlive) 
                 {
-                    // Calculate how many game days have passed since last simulation for this animal
                     int daysToAge = (int)(timeSinceLastSimulation.TotalSeconds / SECONDS_PER_GAME_DAY);
                     
                     if (daysToAge > 0)
@@ -218,33 +175,24 @@ namespace FarmSimulation.Business.Services
                     }
                 }
                 
-                // Check if animal should die based on age
                 if (animal.IsAlive && animal.Age >= animal.MaxAge)
                 {
                     animal.IsAlive = false;
-                    deadAnimals++;
                 }
             }
             
-            // Remove dead animals from the list
             Animals.RemoveAll(a => !a.IsAlive);
             
-            // Save changes to database
             await SaveChangesToDatabaseAsync();
         }
 
-        /// <summary>
-        /// Creates a product based on the animal type
-        /// </summary>
-        /// <param name="animal">The animal that produces the product</param>
-        /// <returns>A new product instance</returns>
         private Product CreateProductForAnimal(Animal animal)
         {
             var product = new Product
             {
                 ProductType = GetProductTypeByAnimal(animal.Type),
                 Name = GetProductNameByAnimal(animal.Type),
-                Quantity = 1, // Default quantity
+                Quantity = 1,
                 Price = GetProductPriceByAnimal(animal.Type),
                 ProducedByAnimalType = animal.Type,
                 DateProduced = DateTime.Now
@@ -253,11 +201,6 @@ namespace FarmSimulation.Business.Services
             return product;
         }
 
-        /// <summary>
-        /// Gets the product type based on the animal type
-        /// </summary>
-        /// <param name="animalType">The type of animal</param>
-        /// <returns>The product type produced by the animal</returns>
         private string GetProductTypeByAnimal(string animalType)
         {
             return animalType.ToLower() switch
@@ -269,11 +212,6 @@ namespace FarmSimulation.Business.Services
             };
         }
 
-        /// <summary>
-        /// Gets the product name based on the animal type
-        /// </summary>
-        /// <param name="animalType">The type of animal</param>
-        /// <returns>The product name</returns>
         private string GetProductNameByAnimal(string animalType)
         {
             return animalType.ToLower() switch
@@ -285,153 +223,111 @@ namespace FarmSimulation.Business.Services
             };
         }
 
-        /// <summary>
-        /// Gets the product price based on the animal type
-        /// </summary>
-        /// <param name="animalType">The type of animal</param>
-        /// <returns>The product price</returns>
         private decimal GetProductPriceByAnimal(string animalType)
         {
             return animalType.ToLower() switch
             {
-                "chicken" => 0.5m, // Egg price
-                "cow" => 2.5m,     // Milk price
-                "sheep" => 3.0m,   // Wool price
+                "chicken" => 0.5m,
+                "cow" => 2.5m,
+                "sheep" => 3.0m,
                 _ => 0m
             };
         }
 
-        /// <summary>
-        /// Sells all unsold products and adds the proceeds to cash
-        /// </summary>
-        /// <returns>The total amount earned from selling products</returns>
         public async Task<decimal> SellProductsAsync()
         {
             decimal totalEarnings = 0m;
 
-            // Find all unsold products
             var unsoldProducts = Products.Where(p => !p.IsSold).ToList();
 
             foreach (var product in unsoldProducts)
             {
                 totalEarnings += product.Price * product.Quantity;
-                product.IsSold = true; // Mark as sold
+                product.IsSold = true;
                 
-                // Update product in database
                 await UpdateProductAsync(product);
             }
 
-            // Add earnings to cash
             Cash.Amount += totalEarnings;
             await _dataAccess.UpdateCashAsync(Cash);
 
             return totalEarnings;
         }
 
-        /// <summary>
-        /// Gets the price for buying a specific animal type
-        /// </summary>
-        /// <param name="animalType">The type of animal to buy</param>
-        /// <returns>The price of the animal</returns>
         public decimal GetAnimalPrice(string animalType)
         {
             return animalType.ToLower() switch
             {
-                "chicken" => 10m,  // Chicken price
-                "cow" => 500m,     // Cow price
-                "sheep" => 150m,   // Sheep price
+                "chicken" => 10m,
+                "cow" => 500m,
+                "sheep" => 150m,
                 _ => 0m
             };
         }
 
-        /// <summary>
-        /// Creates a new animal based on the specified type
-        /// </summary>
-        /// <param name="animalType">The type of animal to create</param>
-        /// <param name="name">The name of the animal</param>
-        /// <returns>A new animal instance</returns>
         public Animal CreateAnimal(string animalType, string name)
         {
             var animal = new Animal
             {
                 Name = name,
                 Type = animalType,
-                Gender = new Random().Next(0, 2) == 0 ? "Male" : "Female", // Random gender
+                Gender = new Random().Next(0, 2) == 0 ? "Male" : "Female",
                 DateOfBirth = DateTime.Now
             };
 
-            // Set animal-specific properties
             switch (animalType.ToLower())
             {
                 case "chicken":
-                    animal.MaxAge = 15; // 15 days
-                    animal.ProductProductionTime = 30; // 30 seconds
+                    animal.MaxAge = 15;
+                    animal.ProductProductionTime = 30;
                     break;
                 case "cow":
-                    animal.MaxAge = 20; // 20 days
-                    animal.ProductProductionTime = 60; // 60 seconds
+                    animal.MaxAge = 20;
+                    animal.ProductProductionTime = 60;
                     break;
                 case "sheep":
-                    animal.MaxAge = 25; // 25 days
-                    animal.ProductProductionTime = 90; // 90 seconds
+                    animal.MaxAge = 25;
+                    animal.ProductProductionTime = 90;
                     break;
                 default:
-                    animal.MaxAge = 10; // Default max age
-                    animal.ProductProductionTime = 60; // Default production time
+                    animal.MaxAge = 10;
+                    animal.ProductProductionTime = 60;
                     break;
             }
 
             return animal;
         }
 
-        /// <summary>
-        /// Saves all changes to the database
-        /// </summary>
         private async Task SaveChangesToDatabaseAsync()
         {
-            // Update all animals in the database
             foreach (var animal in Animals)
             {
                 await _dataAccess.UpdateAnimalAsync(animal);
             }
 
-            // Update cash in the database
             await _dataAccess.UpdateCashAsync(Cash);
         }
 
-        /// <summary>
-        /// Collects a product from a specific animal
-        /// </summary>
-        /// <param name="animal">The animal to collect product from</param>
-        /// <returns>The collected product</returns>
         public async Task<Product> CollectProductFromAnimalAsync(Animal animal)
         {
             if (animal != null && animal.IsAlive && animal.CanProduce)
             {
-                // Create a new product based on the animal type
                 var product = CreateProductForAnimal(animal);
                 await AddProductAsync(product);
                 
-                // Reset production progress
                 animal.ProductProductionProgress = 0;
                 
-                // Update animal in database
                 await UpdateAnimalAsync(animal);
                 
                 return product;
             }
-            return new Product(); // Return a default product instead of null
+            return new Product();
         }
 
-        /// <summary>
-        /// Collects products from all animals that can produce
-        /// </summary>
-        /// <returns>List of collected products</returns>
         public async Task<List<Product>> CollectAllProductsAsync()
         {
             var collectedProducts = new List<Product>();
             
-            // Collect products from all animals that can produce
             foreach (var animal in Animals.Where(a => a.IsAlive && a.CanProduce).ToList())
             {
                 var product = await CollectProductFromAnimalAsync(animal);
@@ -444,25 +340,18 @@ namespace FarmSimulation.Business.Services
             return collectedProducts;
         }
 
-        /// <summary>
-        /// Deletes all sold products from the database and updates the local list
-        /// </summary>
-        /// <returns>Number of deleted products</returns>
         public async Task<int> DeleteSoldProductsAsync()
         {
             int deletedCount = 0;
             
-            // Get all sold products from database
             var soldProducts = await _dataAccess.GetSoldProductsAsync();
             
-            // Delete each sold product
             foreach (var product in soldProducts)
             {
                 await _dataAccess.DeleteProductAsync(product.Id);
                 deletedCount++;
             }
             
-            // Remove sold products from local list
             Products.RemoveAll(p => p.IsSold);
             
             return deletedCount;

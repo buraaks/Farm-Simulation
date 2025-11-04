@@ -3100,11 +3100,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\burak\\FarmSimulation\\FarmSimulation.UI\\FarmSimulation.UI.csproj",
+      "projectUniqueName": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\FarmSimulation.UI.csproj",
       "projectName": "FarmSimulation.UI",
-      "projectPath": "C:\\Users\\burak\\FarmSimulation\\FarmSimulation.UI\\FarmSimulation.UI.csproj",
+      "projectPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\FarmSimulation.UI.csproj",
       "packagesPath": "C:\\Users\\burak\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\burak\\FarmSimulation\\FarmSimulation.UI\\obj\\",
+      "outputPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\burak\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3121,14 +3121,14 @@
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "projectReferences": {
-            "C:\\Users\\burak\\FarmSimulation\\FarmSimulation.Business\\FarmSimulation.Business.csproj": {
-              "projectPath": "C:\\Users\\burak\\FarmSimulation\\FarmSimulation.Business\\FarmSimulation.Business.csproj"
+            "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.Business\\FarmSimulation.Business.csproj": {
+              "projectPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.Business\\FarmSimulation.Business.csproj"
             },
-            "C:\\Users\\burak\\FarmSimulation\\FarmSimulation.Data\\FarmSimulation.Data.csproj": {
-              "projectPath": "C:\\Users\\burak\\FarmSimulation\\FarmSimulation.Data\\FarmSimulation.Data.csproj"
+            "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.Data\\FarmSimulation.Data.csproj": {
+              "projectPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.Data\\FarmSimulation.Data.csproj"
             },
-            "C:\\Users\\burak\\FarmSimulation\\FarmSimulation.Entities\\FarmSimulation.Entities.csproj": {
-              "projectPath": "C:\\Users\\burak\\FarmSimulation\\FarmSimulation.Entities\\FarmSimulation.Entities.csproj"
+            "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.Entities\\FarmSimulation.Entities.csproj": {
+              "projectPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.Entities\\FarmSimulation.Entities.csproj"
             }
           }
         }

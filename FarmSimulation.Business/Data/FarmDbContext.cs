@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FarmSimulation.Business.Data
 {
     /// <summary>
-    /// Represents the database context for the farm simulation
+    /// Tarım simülasyonu için veritabanı bağlamını temsil eder
     /// </summary>
     public class FarmDbContext : DbContext
     {
@@ -24,14 +24,12 @@ namespace FarmSimulation.Business.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                // Use default connection string - this can be changed to match your existing SQL database
                 optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=FarmSimulationDB;Trusted_Connection=true;MultipleActiveResultSets=true;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure Animal entity
             modelBuilder.Entity<Animal>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -41,7 +39,6 @@ namespace FarmSimulation.Business.Data
                 entity.Property(e => e.DateOfBirth).HasColumnType("datetime");
             });
 
-            // Configure Product entity
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -51,12 +48,11 @@ namespace FarmSimulation.Business.Data
                 entity.Property(e => e.ProducedByAnimalType).HasMaxLength(50);
             });
 
-            // Configure Cash entity
             modelBuilder.Entity<Cash>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id).ValueGeneratedNever(); // Disable identity for Cash Id
-                entity.Property(e => e.Amount).HasColumnType("decimal(18,2)"); // Ensure proper decimal type
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Amount).HasColumnType("decimal(18,2)");
             });
             
             base.OnModelCreating(modelBuilder);

@@ -9,3 +9,15 @@ C:\Users\burak\FarmSimulation\FarmSimulation.Entities\obj\Debug\net9.0\FarmSimul
 C:\Users\burak\FarmSimulation\FarmSimulation.Entities\obj\Debug\net9.0\refint\FarmSimulation.Entities.dll
 C:\Users\burak\FarmSimulation\FarmSimulation.Entities\obj\Debug\net9.0\FarmSimulation.Entities.pdb
 C:\Users\burak\FarmSimulation\FarmSimulation.Entities\obj\Debug\net9.0\ref\FarmSimulation.Entities.dll
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\bin\Debug\net9.0\FarmSimulation.Entities.deps.json
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\bin\Debug\net9.0\FarmSimulation.Entities.dll
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\bin\Debug\net9.0\FarmSimulation.Entities.pdb
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\obj\Debug\net9.0\FarmSimulation.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\obj\Debug\net9.0\FarmSimulation.Entities.AssemblyInfoInputs.cache
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\obj\Debug\net9.0\FarmSimulation.Entities.AssemblyInfo.cs
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\obj\Debug\net9.0\FarmSimulation.Entities.csproj.CoreCompileInputs.cache
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\obj\Debug\net9.0\FarmSimulation.Entities.sourcelink.json
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\obj\Debug\net9.0\FarmSimulation.Entities.dll
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\obj\Debug\net9.0\refint\FarmSimulation.Entities.dll
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\obj\Debug\net9.0\FarmSimulation.Entities.pdb
+C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Entities\obj\Debug\net9.0\ref\FarmSimulation.Entities.dll

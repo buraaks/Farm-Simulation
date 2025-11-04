@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace FarmSimulation.Entities
 {
     /// <summary>
-    /// Represents an animal in the farm simulation with properties matching the database structure
+    /// Tarım simülasyonundaki bir hayvanı temsil eder
     /// </summary>
     public class Animal
     {
@@ -28,9 +28,9 @@ namespace FarmSimulation.Entities
         
         public int MaxAge { get; set; }
         
-        public int ProductProductionTime { get; set; } // in seconds
+        public int ProductProductionTime { get; set; }
         
-        public int ProductProductionProgress { get; set; } // percentage
+        public int ProductProductionProgress { get; set; }
         
         public bool IsAlive { get; set; }
         

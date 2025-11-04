@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace FarmSimulation.Entities
 {
     /// <summary>
-    /// Represents a product in the farm simulation with properties matching the database structure
+    /// Tarım simülasyonundaki bir ürünü temsil eder
     /// </summary>
     public class Product
     {

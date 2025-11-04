@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FarmSimulation.Business")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0ef45e66b74dfdefbdb6878176b014800fbe167")]
 [assembly: System.Reflection.AssemblyProductAttribute("FarmSimulation.Business")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FarmSimulation.Business")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

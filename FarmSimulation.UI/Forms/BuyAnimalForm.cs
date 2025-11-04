@@ -45,14 +45,14 @@ namespace FarmSimulation.UI.Forms
             string? animalName = animalNameTextBox.Text.Trim();
             if (string.IsNullOrEmpty(animalName))
             {
-                MessageBox.Show("Please enter an animal name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Lütfen bir hayvan adı girin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             string? selectedType = animalTypeComboBox.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(selectedType))
             {
-                MessageBox.Show("Please select an animal type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Lütfen bir hayvan türü seçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -60,18 +60,17 @@ namespace FarmSimulation.UI.Forms
 
             if (businessService.Cash.Subtract(price))
             {
-                // Create and add the new animal
                 Animal newAnimal = businessService.CreateAnimal(selectedType, animalName);
                 await businessService.AddAnimalAsync(newAnimal);
 
-                MessageBox.Show($"{selectedType} named '{animalName}' purchased successfully!", "Success", 
+                MessageBox.Show($"'{animalName}' adlı {selectedType} başarıyla satın alındı!", "Başarılı", 
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Insufficient funds!", "Error", 
+                MessageBox.Show("Yetersiz bakiye!", "Hata", 
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }

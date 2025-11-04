@@ -4,8 +4,7 @@ using System;
 namespace FarmSimulation.Data
 {
     /// <summary>
-    /// Represents a database service for the farm simulation
-    /// Uses Entity Framework with SQL Server
+    /// Tarım simülasyonu için bir veritabanı servisi temsil eder
     /// </summary>
     public class DatabaseService
     {
@@ -16,17 +15,11 @@ namespace FarmSimulation.Data
             _context = context;
         }
 
-        /// <summary>
-        /// Initializes the database
-        /// </summary>
         public void InitializeDatabase()
         {
             _context.Database.EnsureCreated();
         }
 
-        /// <summary>
-        /// Gets the database context
-        /// </summary>
         public DbContext GetContext()
         {
             return _context;
