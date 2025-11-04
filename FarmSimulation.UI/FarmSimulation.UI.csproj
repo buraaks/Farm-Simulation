@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <RootNamespace>FarmSimulation.UI</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FarmSimulation.Business\FarmSimulation.Business.csproj" />
+    <ProjectReference Include="..\FarmSimulation.Data\FarmSimulation.Data.csproj" />
+    <ProjectReference Include="..\FarmSimulation.Entities\FarmSimulation.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
