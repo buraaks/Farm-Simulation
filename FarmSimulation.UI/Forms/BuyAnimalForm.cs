@@ -14,7 +14,16 @@ namespace FarmSimulation.UI.Forms
         {
             this.businessService = businessService;
             InitializeComponent();
+            InitializeAnimalTypes();
             UpdatePrice();
+        }
+
+        private void InitializeAnimalTypes()
+        {
+            animalTypeComboBox.Items.Add(AnimalTypes.Chicken);
+            animalTypeComboBox.Items.Add(AnimalTypes.Cow);
+            animalTypeComboBox.Items.Add(AnimalTypes.Sheep);
+            animalTypeComboBox.SelectedIndex = 0;
         }
 
         private void AnimalTypeComboBox_SelectedIndexChanged(object? sender, EventArgs e)
@@ -35,42 +44,61 @@ namespace FarmSimulation.UI.Forms
         private decimal GetAnimalPrice(string? animalType)
         {
             if (string.IsNullOrEmpty(animalType)) return 0m;
-            if (businessService == null) return 0m; 
+            if (businessService == null) return 0m;
             return businessService.GetAnimalPrice(animalType);
         }
 
         private async void BuyButton_Click(object? sender, EventArgs e)
         {
-            string? animalName = animalNameTextBox.Text.Trim();
-            if (string.IsNullOrEmpty(animalName))
+            try
             {
-                MessageBox.Show("Lütfen bir hayvan adı girin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                string? animalName = animalNameTextBox.Text.Trim();
+                if (string.IsNullOrEmpty(animalName))
+                {
+                    MessageBox.Show("Please enter an animal name.", "Warning", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string? selectedType = animalTypeComboBox.SelectedItem?.ToString();
+                if (string.IsNullOrEmpty(selectedType))
+                {
+                    MessageBox.Show("Please select an animal type.", "Warning", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                decimal price = GetAnimalPrice(selectedType);
+
+                // Check if there is enough cash
+                if (businessService.Cash.Amount >= price)
+                {
+                    // Subtract the price from cash
+                    businessService.Cash.Amount -= price;
+
+                    // Create and add the new animal
+                    Animal newAnimal = businessService.CreateAnimal(selectedType, animalName);
+                    await businessService.AddAnimalAsync(newAnimal);
+                    
+                    // Save the cash change to the database
+                    businessService.dataAccess.UpdateCash(businessService.Cash);
+                    await businessService.dataAccess.SaveChangesAsync();
+
+                    MessageBox.Show($"{selectedType} '{animalName}' was purchased successfully!", "Success",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show($"Insufficient funds! You need {price:C} to buy this animal.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-
-            string? selectedType = animalTypeComboBox.SelectedItem?.ToString();
-            if (string.IsNullOrEmpty(selectedType))
+            catch (Exception ex)
             {
-                MessageBox.Show("Lütfen bir hayvan türü seçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            decimal price = GetAnimalPrice(selectedType);
-
-            if (businessService.Cash.Subtract(price))
-            {
-                Animal newAnimal = businessService.CreateAnimal(selectedType, animalName);
-                await businessService.AddAnimalAsync(newAnimal);
-
-                MessageBox.Show($"'{animalName}' adlı {selectedType} başarıyla satın alındı!", "Başarılı", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Yetersiz bakiye!", "Hata", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Error while purchasing animal: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

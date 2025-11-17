@@ -14,7 +14,7 @@ namespace FarmSimulation.Entities
 
         public Cash()
         {
-            Amount = 1000m;
+            Amount = GameSettings.InitialCash;
         }
 
         // Nakit miktarına para ekler

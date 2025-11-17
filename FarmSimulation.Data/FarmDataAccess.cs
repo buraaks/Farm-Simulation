@@ -27,11 +27,9 @@ namespace FarmSimulation.Data
             return animal.Id;
         }
 
-        public async Task UpdateAnimalAsync(Animal animal)
+        public void UpdateAnimal(Animal animal)
         {
-            var dbSet = _context.Set<Animal>();
-            dbSet.Update(animal);
-            await _context.SaveChangesAsync();
+            _context.Set<Animal>().Update(animal);
         }
 
         public async Task DeleteAnimalAsync(int animalId)
@@ -70,11 +68,9 @@ namespace FarmSimulation.Data
             return product.Id;
         }
 
-        public async Task UpdateProductAsync(Product product)
+        public void UpdateProduct(Product product)
         {
-            var dbSet = _context.Set<Product>();
-            dbSet.Update(product);
-            await _context.SaveChangesAsync();
+            _context.Set<Product>().Update(product);
         }
 
         public async Task<List<Product>> GetAllProductsAsync()
@@ -114,21 +110,22 @@ namespace FarmSimulation.Data
         {
             var dbSet = _context.Set<Cash>();
             var cash = await dbSet.FindAsync(1);
-            
+
             if (cash == null)
             {
                 cash = new Cash { Id = 1, Amount = 1000m };
                 dbSet.Add(cash);
                 await _context.SaveChangesAsync();
             }
-            
+
             return cash;
         }
 
-        public async Task UpdateCashAsync(Cash cash)
+        public void UpdateCash(Cash cash)
         {
             var dbSet = _context.Set<Cash>();
-            var existingCash = await dbSet.FindAsync(1);
+            var existingCash = dbSet.Find(1);
+
             if (existingCash != null)
             {
                 existingCash.Amount = cash.Amount;
@@ -139,7 +136,11 @@ namespace FarmSimulation.Data
                 cash.Id = 1;
                 dbSet.Add(cash);
             }
-            await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync();
         }
 
         #endregion

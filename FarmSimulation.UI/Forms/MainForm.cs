@@ -2,9 +2,11 @@ using FarmSimulation.Business.Data;
 using FarmSimulation.Business.Services;
 using FarmSimulation.Data;
 using FarmSimulation.Entities;
+using FarmSimulation.UI.CustomControls;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,15 +19,40 @@ namespace FarmSimulation.UI.Forms
         private FarmBusinessService? businessService;
         private FarmDataAccess? dataAccess;
         private FarmDbContext? dbContext;
+        private bool _isSimulating = false;
 
         public MainForm()
         {
             InitializeComponent();
             InitializeDatabase();
+            InitializeGridColumns();
             InitializeTimer();
 
-            // async işlemleri form yüklendikten sonra başlat
             this.Load += MainForm_Load;
+        }
+
+        private void InitializeGridColumns()
+        {
+            sellSelectedProductButton.Location = new Point(650, 120);
+            sellAllProductsButton.Location = new Point(650, 170);
+            sellProductsButton.Location = new Point(650, 220);
+            deleteSoldProductsButton.Location = new Point(650, 270);
+            resetGameButton.Location = new Point(650, 320);
+
+            animalsGrid.Columns.Clear();
+            
+            animalsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "ID", ReadOnly = true, FillWeight = 30 });
+            animalsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "AnimalName", HeaderText = "Name", ReadOnly = true, FillWeight = 70 });
+            animalsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Age", HeaderText = "Age", ReadOnly = true, FillWeight = 30 });
+            animalsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Type", HeaderText = "Type", ReadOnly = true, FillWeight = 60 });
+            animalsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "IsAlive", HeaderText = "Is Alive", ReadOnly = true, FillWeight = 40 });
+            
+            var progressColumn = new DataGridViewProgressBarColumn();
+            progressColumn.Name = "ProductionProgress";
+            progressColumn.HeaderText = "Production Progress";
+            progressColumn.ReadOnly = true;
+            progressColumn.FillWeight = 100;
+            animalsGrid.Columns.Add(progressColumn);
         }
 
         private async void MainForm_Load(object? sender, EventArgs e)
@@ -35,34 +62,65 @@ namespace FarmSimulation.UI.Forms
 
         private void InitializeDatabase()
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Application.StartupPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-            var configuration = builder.Build();
+            try
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Application.StartupPath)
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                var configuration = builder.Build();
 
-            var optionsBuilder = new DbContextOptionsBuilder<FarmDbContext>();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                var optionsBuilder = new DbContextOptionsBuilder<FarmDbContext>();
+                // Add EnableRetryOnFailure for transient error resiliency
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure();
+                });
 
-            dbContext = new FarmDbContext(optionsBuilder.Options);
-            dbContext.Database.EnsureCreated();
+                dbContext = new FarmDbContext(optionsBuilder.Options);
+                
+                // Ensure the database is deleted and then recreated to match the current model.
+                // This is useful for development but will delete all data on each start.
+                dbContext.Database.EnsureDeleted();
+                dbContext.Database.EnsureCreated();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Database initialization error: {ex.Message}", "Critical Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
         }
 
         private async Task InitializeServices()
         {
-            buyAnimalButton.Enabled = false;
+            if (dbContext == null)
+            {
+                MessageBox.Show("Database context could not be initialized.", "Critical Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+                return;
+            }
 
-            dataAccess = new FarmDataAccess(dbContext);
-            businessService = new FarmBusinessService(dataAccess);
-            await businessService.InitializeAsync();
+            try
+            {
+                buyAnimalButton.Enabled = false;
 
-            UpdateUI();
-            buyAnimalButton.Enabled = true;
+                dataAccess = new FarmDataAccess(dbContext);
+                businessService = new FarmBusinessService(dataAccess);
+                await businessService.InitializeAsync();
+
+                UpdateUI();
+                buyAnimalButton.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error while initializing services: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void InitializeTimer()
         {
-            simulationTimer = new System.Windows.Forms.Timer();
-            simulationTimer.Interval = 1000;
             simulationTimer.Tick += SimulationTimer_Tick;
             simulationTimer.Start();
         }
@@ -71,245 +129,279 @@ namespace FarmSimulation.UI.Forms
         {
             if (businessService == null)
             {
-                MessageBox.Show("Sistem hala başlatılıyor. Lütfen biraz bekleyin.",
-                    "Başlatma", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("The system is still starting. Please wait a moment.",
+                    "Initialization", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            using var buyForm = new BuyAnimalForm(businessService);
-            var result = buyForm.ShowDialog();
-
-            if (result == DialogResult.OK)
-                await UpdateUIAsync();
-        }
-
-        private async void CollectSelectedAnimalProductsButton_Click(object? sender, EventArgs e)
-        {
-            if (businessService == null) return;
-            if (animalsGrid.SelectedRows.Count == 0)
+            try
             {
-                MessageBox.Show("Lütfen önce bir hayvan seçin.");
-                return;
+                using var buyForm = new BuyAnimalForm(businessService);
+                var result = buyForm.ShowDialog();
+
+                if (result == DialogResult.OK)
+                    await UpdateUIAsync();
             }
-
-            var selectedRow = animalsGrid.SelectedRows[0];
-            var animalId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
-            var animal = businessService.Animals.FirstOrDefault(a => a.Id == animalId);
-
-            if (animal == null)
+            catch (Exception ex)
             {
-                MessageBox.Show("Seçilen hayvan bulunamadı.");
-                return;
-            }
-
-            var product = await businessService.CollectProductFromAnimalAsync(animal);
-            if (product != null && product.Name != "Unknown Product")
-            {
-                MessageBox.Show($"{animal.Name} hayvanından {product.Name} toplandı!");
-                await UpdateUIAsync();
-            }
-            else
-            {
-                MessageBox.Show("Bu hayvandan ürün toplanamadı.");
+                MessageBox.Show($"Error while buying animal: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private async void SellProductsButton_Click(object sender, EventArgs e)
         {
             if (businessService == null) return;
-            decimal earnings = await businessService.SellProductsAsync();
-            MessageBox.Show($"Ürünler {earnings:C} karşılığında satıldı!");
-            await UpdateUIAsync();
+            
+            try
+            {
+                decimal earnings = await businessService.SellProductsAsync();
+                MessageBox.Show($"Products sold for {earnings:C}!", "Success",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await UpdateUIAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error while selling products: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async void DeleteSoldProductsButton_Click(object sender, EventArgs e)
         {
             if (businessService == null) return;
-            int deletedCount = await businessService.DeleteSoldProductsAsync();
-            MessageBox.Show($"{deletedCount} satılmış ürün silindi!");
-            await UpdateUIAsync();
-        }
-
-        private async void CollectAllProductsButton_Click(object? sender, EventArgs e)
-        {
-            if (businessService == null) return;
-            int collectedCount = 0;
-            foreach (var animal in businessService.Animals.Where(a => a.IsAlive && a.CanProduce).ToList())
+            
+            try
             {
-                var product = await businessService.CollectProductFromAnimalAsync(animal);
-                if (product != null) collectedCount++;
+                int deletedCount = await businessService.DeleteSoldProductsAsync();
+                MessageBox.Show($"{deletedCount} sold products were deleted!", "Success",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await UpdateUIAsync();
             }
-
-            MessageBox.Show($"{collectedCount} ürün toplandı!");
-            await UpdateUIAsync();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error while deleting products: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async void SellSelectedProductButton_Click(object? sender, EventArgs e)
         {
             if (businessService == null) return;
-            if (productsGrid.SelectedRows.Count == 0)
+            
+            try
             {
-                MessageBox.Show("Lütfen önce bir ürün seçin.");
-                return;
+                if (productsGrid.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Please select a product first.", "Warning",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var selectedRow = productsGrid.SelectedRows[0];
+                var productId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
+                var product = businessService.Products.FirstOrDefault(p => p.Id == productId);
+
+                if (product == null) return;
+
+                if (!product.IsSold)
+                {
+                    product.IsSold = true;
+                    businessService.Cash.Amount += product.Price * product.Quantity;
+
+                    businessService.dataAccess.UpdateProduct(product);
+                    businessService.dataAccess.UpdateCash(businessService.Cash);
+                    await businessService.dataAccess.SaveChangesAsync();
+
+                    MessageBox.Show($"{product.Name} sold for {product.Price * product.Quantity:C}!", "Success",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await UpdateUIAsync();
+                }
+                else
+                {
+                    MessageBox.Show("This product has already been sold.", "Info",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-
-            var selectedRow = productsGrid.SelectedRows[0];
-            var productId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
-            var product = businessService.Products.FirstOrDefault(p => p.Id == productId);
-
-            if (product == null) return;
-
-            if (!product.IsSold)
+            catch (Exception ex)
             {
-                product.IsSold = true;
-                businessService.Cash.Amount += product.Price * product.Quantity;
-                await businessService.dataAccess.UpdateProductAsync(product);
-                MessageBox.Show($"{product.Name} {product.Price * product.Quantity:C} karşılığında satıldı!");
-                await UpdateUIAsync();
-            }
-            else
-            {
-                MessageBox.Show("Bu ürün zaten satılmış.");
+                MessageBox.Show($"Error while selling product: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private async void SellAllProductsButton_Click(object sender, EventArgs e)
         {
             if (businessService == null) return;
-            decimal totalEarnings = 0m;
-            int soldCount = 0;
 
-            foreach (var product in businessService.Products.Where(p => !p.IsSold).ToList())
+            try
             {
-                product.IsSold = true;
-                totalEarnings += product.Price * product.Quantity;
-                soldCount++;
-                await businessService.dataAccess.UpdateProductAsync(product);
-            }
-
-            if (soldCount > 0)
-            {
-                businessService.Cash.Amount += totalEarnings;
-                MessageBox.Show($"{soldCount} ürün {totalEarnings:C} karşılığında satıldı!");
+                decimal earnings = await businessService.SellProductsAsync();
+                MessageBox.Show($"All products sold for {earnings:C}!", "Success",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 await UpdateUIAsync();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Satılmamış ürün bulunamadı.");
+                MessageBox.Show($"Error while selling products: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void UpdateUI()
         {
             if (businessService == null) return;
-            cashLabel.Text = $"Nakit: {businessService.Cash.Amount:C}";
-
-            animalsGrid.Rows.Clear();
-            foreach (var animal in businessService.Animals)
+            
+            try
             {
-                int index = animalsGrid.Rows.Add(
-                    animal.Id,
-                    animal.Name,
-                    animal.Age,
-                    animal.Type,
-                    animal.IsAlive ? "Evet" : "Hayır",
-                    animal.ProductProductionProgress + "%"
-                );
-                if (!animal.IsAlive)
-                    animalsGrid.Rows[index].DefaultCellStyle.BackColor = System.Drawing.Color.LightCoral;
+                cashLabel.Text = $"Cash: {businessService.Cash.Amount:C}";
+
+                animalsGrid.Rows.Clear();
+                foreach (var animal in businessService.Animals)
+                {
+                    int index = animalsGrid.Rows.Add(
+                        animal.Id,
+                        animal.Name,
+                        animal.Age,
+                        animal.Type,
+                        animal.IsAlive ? "Yes" : "No",
+                        (int)animal.ProductProductionProgress
+                    );
+                    if (!animal.IsAlive)
+                        animalsGrid.Rows[index].DefaultCellStyle.BackColor = Color.LightCoral;
+                }
+
+                productsGrid.Rows.Clear();
+                foreach (var product in businessService.Products)
+                {
+                    int index = productsGrid.Rows.Add(
+                        product.Id,
+                        product.ProductType,
+                        product.Quantity,
+                        product.Price.ToString("C"),
+                        product.IsSold ? "Yes" : "No"
+                    );
+                    productsGrid.Rows[index].DefaultCellStyle.BackColor =
+                        product.IsSold ? Color.LightGreen : Color.LightBlue;
+                }
             }
-
-            productsGrid.Rows.Clear();
-            foreach (var product in businessService.Products)
+            catch (Exception ex)
             {
-                int index = productsGrid.Rows.Add(
-                    product.Id,
-                    product.ProductType,
-                    product.Quantity,
-                    product.Price.ToString("C"),
-                    product.IsSold ? "Evet" : "Hayır"
-                );
-                productsGrid.Rows[index].DefaultCellStyle.BackColor =
-                    product.IsSold ? System.Drawing.Color.LightGreen : System.Drawing.Color.LightBlue;
+                MessageBox.Show($"Error while updating UI: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private async Task UpdateUIAsync()
         {
             if (businessService == null) return;
-            await Task.Run(() => Invoke((MethodInvoker)UpdateUI));
+            await Task.Run(() => 
+            {
+                if (InvokeRequired)
+                    Invoke((MethodInvoker)UpdateUI);
+                else
+                    UpdateUI();
+            });
         }
 
         private async void ResetGameButton_Click(object? sender, EventArgs e)
         {
             var result = MessageBox.Show(
-                "Oyunu sıfırlamak istediğinize emin misiniz?\nBu işlem tüm hayvanları, ürünleri ve nakit miktarını sıfırlayacak.",
-                "Oyunu Sıfırla",
+                "Are you sure you want to reset the game?\nThis action will reset all animals, products, and cash.",
+                "Reset Game",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
-                if (businessService != null)
+                try
                 {
-                    // Business servis içindeki verileri sıfırla
-                    businessService.Animals.Clear();
-                    businessService.Products.Clear();
-                    businessService.Cash.Amount = 1000m; // Başlangıç parası
-                    
-                    // Veritabanını da sıfırla
-                    await ResetDatabaseAsync();
-                    
-                    // UI'yi güncelle
-                    UpdateUI();
-                    
-                    MessageBox.Show("Oyun başarıyla sıfırlandı!", "Başarılı", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (businessService != null)
+                    {
+                        businessService.Animals.Clear();
+                        businessService.Products.Clear();
+                        businessService.Cash.Amount = GameSettings.InitialCash;
+                        businessService.ClearTimeAccumulator();
+
+                        await ResetDatabaseAsync();
+                        UpdateUI();
+
+                        MessageBox.Show("Game has been reset successfully!", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error while resetting game: {ex.Message}", "Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private async Task ResetDatabaseAsync()
         {
-            if (dataAccess != null)
+            if (dataAccess == null) return;
+            
+            try
             {
-                // Veritabanındaki tüm hayvanları sil
                 var allAnimals = await dataAccess.GetAllAnimalsAsync();
                 foreach (var animal in allAnimals)
                 {
                     await dataAccess.DeleteAnimalAsync(animal.Id);
                 }
 
-                // Veritabanındaki tüm ürünleri sil
                 var allProducts = await dataAccess.GetAllProductsAsync();
                 foreach (var product in allProducts)
                 {
                     await dataAccess.DeleteProductAsync(product.Id);
                 }
 
-                // Nakiti başlangıç değerine getir
                 var cash = await dataAccess.GetCashAsync();
-                cash.Amount = 1000m;
-                await dataAccess.UpdateCashAsync(cash);
-                
-                // Business servisi yeniden başlat
+                cash.Amount = GameSettings.InitialCash;
+                dataAccess.UpdateCash(cash);
+                await dataAccess.SaveChangesAsync();
+
                 await businessService.InitializeAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while resetting database: {ex.Message}", ex);
             }
         }
 
         private async void SimulationTimer_Tick(object? sender, EventArgs e)
         {
             if (businessService == null) return;
+            
+            if (_isSimulating) return;
+            _isSimulating = true;
+
             try
             {
                 await businessService.SimulateTickAsync();
-                Invoke((MethodInvoker)UpdateUI);
+                
+                if (InvokeRequired)
+                    Invoke((MethodInvoker)UpdateUI);
+                else
+                    UpdateUI();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Simülasyon adımı sırasında hata: {ex.Message}", "Simülasyon Hatası",
+                MessageBox.Show($"Error during simulation step: {ex.Message}", "Simulation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            finally
+            {
+                _isSimulating = false;
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            simulationTimer?.Stop();
+            simulationTimer?.Dispose();
+            dbContext?.Dispose();
+            base.OnFormClosing(e);
         }
     }
 }

@@ -50,10 +50,6 @@ namespace FarmSimulation.UI.Forms
             this.animalTypeComboBox = new System.Windows.Forms.ComboBox();
             this.animalTypeComboBox.Location = new System.Drawing.Point(130, 60);
             this.animalTypeComboBox.Size = new System.Drawing.Size(120, 25);
-            this.animalTypeComboBox.Items.Add("Chicken");
-            this.animalTypeComboBox.Items.Add("Cow");
-            this.animalTypeComboBox.Items.Add("Sheep");
-            this.animalTypeComboBox.SelectedIndex = 0;
             this.animalTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.AnimalTypeComboBox_SelectedIndexChanged);
 
             // Price display

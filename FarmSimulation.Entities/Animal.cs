@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FarmSimulation.Entities
 {
-    // Tarım simülasyonundaki bir hayvanı temsil eder
+    // Represents an animal in the farm simulation
     public class Animal
     {
         [Key]
@@ -28,7 +28,7 @@ namespace FarmSimulation.Entities
         
         public int ProductProductionTime { get; set; }
         
-        public int ProductProductionProgress { get; set; }
+        public double ProductProductionProgress { get; set; }
         
         public bool IsAlive { get; set; }
         

@@ -22,12 +22,11 @@ namespace FarmSimulation.UI.Forms
         // the contents of this method with the code editor.
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             animalsGrid = new DataGridView();
             productsGrid = new DataGridView();
             cashLabel = new Label();
             buyAnimalButton = new Button();
-            collectSelectedAnimalProductsButton = new Button();
-            collectAllProductsButton = new Button();
             sellSelectedProductButton = new Button();
             sellAllProductsButton = new Button();
             sellProductsButton = new Button();
@@ -95,26 +94,6 @@ namespace FarmSimulation.UI.Forms
             buyAnimalButton.Text = "Buy Animal";
             buyAnimalButton.Click += BuyAnimalButton_Click;
             // 
-            // collectSelectedAnimalProductsButton
-            // 
-            collectSelectedAnimalProductsButton.Font = new Font("Arial", 8F);
-            collectSelectedAnimalProductsButton.Location = new Point(650, 120);
-            collectSelectedAnimalProductsButton.Name = "collectSelectedAnimalProductsButton";
-            collectSelectedAnimalProductsButton.Size = new Size(120, 40);
-            collectSelectedAnimalProductsButton.TabIndex = 4;
-            collectSelectedAnimalProductsButton.Text = "Collect Selected Animal Products";
-            collectSelectedAnimalProductsButton.Click += CollectSelectedAnimalProductsButton_Click;
-            // 
-            // collectAllProductsButton
-            // 
-            collectAllProductsButton.Font = new Font("Arial", 10F);
-            collectAllProductsButton.Location = new Point(650, 170);
-            collectAllProductsButton.Name = "collectAllProductsButton";
-            collectAllProductsButton.Size = new Size(120, 40);
-            collectAllProductsButton.TabIndex = 5;
-            collectAllProductsButton.Text = "Collect All Products";
-            collectAllProductsButton.Click += CollectAllProductsButton_Click;
-            // 
             // sellSelectedProductButton
             // 
             sellSelectedProductButton.Font = new Font("Arial", 9F);
@@ -154,6 +133,11 @@ namespace FarmSimulation.UI.Forms
             deleteSoldProductsButton.TabIndex = 9;
             deleteSoldProductsButton.Text = "Delete Sold Products";
             deleteSoldProductsButton.Click += DeleteSoldProductsButton_Click;
+            // 
+            // simulationTimer
+            // 
+            simulationTimer = new System.Windows.Forms.Timer(components);
+            simulationTimer.Interval = 1000;
             // 
             // resetGameButton
             // 
@@ -253,8 +237,6 @@ namespace FarmSimulation.UI.Forms
             Controls.Add(productsGrid);
             Controls.Add(cashLabel);
             Controls.Add(buyAnimalButton);
-            Controls.Add(collectSelectedAnimalProductsButton);
-            Controls.Add(collectAllProductsButton);
             Controls.Add(sellSelectedProductButton);
             Controls.Add(sellAllProductsButton);
             Controls.Add(sellProductsButton);
@@ -274,8 +256,6 @@ namespace FarmSimulation.UI.Forms
         private DataGridView productsGrid;
         private Label cashLabel;
         private Button buyAnimalButton;
-        private Button collectSelectedAnimalProductsButton;
-        private Button collectAllProductsButton;
         private Button sellSelectedProductButton;
         private Button sellAllProductsButton;
         private Button sellProductsButton;
