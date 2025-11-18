@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FarmSimulation.Entities
 {
-    // Represents an animal in the farm simulation
+    // Tarım simülasyonundaki bir hayvanı temsil eder
     public class Animal
     {
         [Key]

@@ -31,10 +31,10 @@ namespace FarmSimulation.UI.CustomControls
 
                 float percentage = (float)(progressVal / 100.0);
                 
-                // Draw the progress bar
+                // İlerleme çubuğunu çiz
                 graphics.FillRectangle(Brushes.LightGreen, cellBounds.X + 2, cellBounds.Y + 2, (int)(percentage * (cellBounds.Width - 4)), cellBounds.Height - 4);
                 
-                // Draw the text on top
+                // Üstüne metni çiz
                 string text = $"{progressVal:F0} %";
                 SizeF textSize = graphics.MeasureString(text, cellStyle.Font);
                 float textX = cellBounds.X + (cellBounds.Width - textSize.Width) / 2;
@@ -44,7 +44,7 @@ namespace FarmSimulation.UI.CustomControls
             }
             else
             {
-                // If value is not a number, just draw the text
+                // Değer sayı değilse sadece metni çiz
                 base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
             }
         }

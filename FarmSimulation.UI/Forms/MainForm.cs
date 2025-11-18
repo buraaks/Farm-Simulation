@@ -70,7 +70,7 @@ namespace FarmSimulation.UI.Forms
                 var configuration = builder.Build();
 
                 var optionsBuilder = new DbContextOptionsBuilder<FarmDbContext>();
-                // Add EnableRetryOnFailure for transient error resiliency
+                // Geçici hatalara dayanıklılık için EnableRetryOnFailure ekle
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), sqlServerOptionsAction: sqlOptions =>
                 {
                     sqlOptions.EnableRetryOnFailure();
@@ -78,8 +78,8 @@ namespace FarmSimulation.UI.Forms
 
                 dbContext = new FarmDbContext(optionsBuilder.Options);
                 
-                // Ensure the database is deleted and then recreated to match the current model.
-                // This is useful for development but will delete all data on each start.
+                // Veritabanının mevcut modele uyması için silinip yeniden oluşturulduğundan emin ol.
+                // Bu işlem geliştirme sürecinde faydalıdır ancak her başlatmada tüm verileri siler.
                 dbContext.Database.EnsureDeleted();
                 dbContext.Database.EnsureCreated();
             }

@@ -2,11 +2,11 @@ namespace FarmSimulation.UI.Forms
 {
     partial class BuyAnimalForm
     {
-        // Required designer variable.
+        // Gerekli tasarımcı değişkeni.
         private System.ComponentModel.IContainer components = null;
 
-        // Clean up any resources being used.
-        // disposing: true if managed resources should be disposed; otherwise, false.
+        // Kullanılan tüm kaynakları temizle.
+        // disposing true ise yönetilen kaynaklar atılmalı, aksi halde false.
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -18,8 +18,8 @@ namespace FarmSimulation.UI.Forms
 
         #region Windows Form Designer generated code
 
-        // Required method for Designer support - do not modify
-        // the contents of this method with the code editor.
+        // Tasarımcı desteği için gerekli metot - değiştirmeyin
+        // Bu metodun içeriğini kod düzenleyici ile değiştirmeyin.
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -31,7 +31,7 @@ namespace FarmSimulation.UI.Forms
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             
-            // Animal name input
+            // Hayvan adı girişi
             var nameLabel = new System.Windows.Forms.Label();
             nameLabel.Location = new System.Drawing.Point(20, 20);
             nameLabel.Size = new System.Drawing.Size(100, 20);
@@ -41,7 +41,7 @@ namespace FarmSimulation.UI.Forms
             this.animalNameTextBox.Location = new System.Drawing.Point(130, 20);
             this.animalNameTextBox.Size = new System.Drawing.Size(120, 25);
 
-            // Animal type selection
+            // Hayvan türü seçimi
             var typeLabel = new System.Windows.Forms.Label();
             typeLabel.Location = new System.Drawing.Point(20, 60);
             typeLabel.Size = new System.Drawing.Size(100, 20);
@@ -52,7 +52,7 @@ namespace FarmSimulation.UI.Forms
             this.animalTypeComboBox.Size = new System.Drawing.Size(120, 25);
             this.animalTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.AnimalTypeComboBox_SelectedIndexChanged);
 
-            // Price display
+            // Fiyat gösterimi
             var priceTextLabel = new System.Windows.Forms.Label();
             priceTextLabel.Location = new System.Drawing.Point(20, 100);
             priceTextLabel.Size = new System.Drawing.Size(100, 20);
@@ -64,7 +64,7 @@ namespace FarmSimulation.UI.Forms
             this.priceLabel.Text = GetAnimalPrice("Chicken").ToString("C");
             this.priceLabel.Font = new System.Drawing.Font("Arial", 10, System.Drawing.FontStyle.Bold);
 
-            // Buy button
+            // Satın alma düğmesi
             this.buyButton = new System.Windows.Forms.Button();
             this.buyButton.Location = new System.Drawing.Point(50, 140);
             this.buyButton.Size = new System.Drawing.Size(80, 30);
@@ -72,7 +72,7 @@ namespace FarmSimulation.UI.Forms
             this.buyButton.BackColor = System.Drawing.Color.LightGreen;
             this.buyButton.Click += new System.EventHandler(this.BuyButton_Click);
 
-            // Cancel button
+            // İptal düğmesi
             this.cancelButton = new System.Windows.Forms.Button();
             this.cancelButton.Location = new System.Drawing.Point(170, 140);
             this.cancelButton.Size = new System.Drawing.Size(80, 30);
@@ -80,7 +80,7 @@ namespace FarmSimulation.UI.Forms
             this.cancelButton.BackColor = System.Drawing.Color.LightCoral;
             this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
 
-            // Add controls to the form
+            // Denetimleri forma ekle
             this.Controls.Add(nameLabel);
             this.Controls.Add(this.animalNameTextBox);
             this.Controls.Add(typeLabel);
@@ -90,7 +90,7 @@ namespace FarmSimulation.UI.Forms
             this.Controls.Add(this.buyButton);
             this.Controls.Add(this.cancelButton);
 
-            // Set initial price
+            // Başlangıç fiyatını ayarla
             UpdatePrice();
         }
 

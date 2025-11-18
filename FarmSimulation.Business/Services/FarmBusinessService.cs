@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FarmSimulation.Business.Services
 {
-    // Manages the business logic for the farm simulation
+    // Çiftlik simülasyonunun iş mantığını yönetir
     public class FarmBusinessService
     {
         private readonly FarmDataAccess _dataAccess;
@@ -171,7 +171,7 @@ namespace FarmSimulation.Business.Services
 
         public async Task SimulateTickAsync()
         {
-            // Race condition protection
+            // Race condition (yarış durumu) koruması
             if (_isSimulating) return;
             _isSimulating = true;
 
@@ -184,15 +184,15 @@ namespace FarmSimulation.Business.Services
 
                 bool hasChanges = false;
                 
-                // First, let's create a list to hold new products
+                // Önce yeni ürünleri tutacak bir liste oluşturalım
                 var newProducts = new List<Product>();
 
-                // Working on a copy from ToList() allows modifying the collection
+                // ToList() ile elde edilen kopya üzerinde çalışmak koleksiyonda değişiklik yapmaya izin verir
                 foreach (var animal in Animals.ToList()) 
                 {
                     if (animal.IsAlive)
                     {
-                        // Product production progress (Precise Double-Based)
+                        // Ürün üretim ilerlemesi (hassas double tabanlı)
                         if (animal.CanProduce && animal.ProductProductionTime > 0)
                         {
                             double progressIncrease = (100.0 / animal.ProductProductionTime) * elapsedSeconds;
@@ -202,7 +202,7 @@ namespace FarmSimulation.Business.Services
                                 hasChanges = true;
                             }
 
-                            // If production is complete, collect products automatically
+                            // Üretim tamamlandığında ürünleri otomatik olarak topla
                             if (animal.ProductProductionProgress >= 100)
                             {
                                 int productsMade = (int)(animal.ProductProductionProgress / 100);
@@ -211,11 +211,11 @@ namespace FarmSimulation.Business.Services
                                     var newProduct = CreateProductForAnimal(animal);
                                     newProducts.Add(newProduct);
                                 }
-                                animal.ProductProductionProgress %= 100; // Store the remaining progress
+                                animal.ProductProductionProgress %= 100; // Kalan ilerlemeyi sakla
                             }
                         }
 
-                        // Aging system
+                        // Yaşlanma sistemi
                         if (!_animalTimeAccumulator.ContainsKey(animal.Id))
                         {
                             _animalTimeAccumulator[animal.Id] = 0;
@@ -230,7 +230,7 @@ namespace FarmSimulation.Business.Services
                             hasChanges = true;
                         }
                         
-                        // Death check
+                        // Ölüm kontrolü
                         if (animal.Age >= animal.MaxAge)
                         {
                             animal.IsAlive = false;
@@ -239,32 +239,32 @@ namespace FarmSimulation.Business.Services
                     }
                 }
 
-                // Add newly produced products to the database and the current list
+                // Yeni üretilen ürünleri veritabanına ve mevcut listeye ekle
                 if (newProducts.Any())
                 {
                     foreach (var product in newProducts)
                     {
-                        // AddProductAsync adds to both the database and the 'Products' list
+                        // AddProductAsync hem veritabanına hem de 'Products' listesine ekler
                         await AddProductAsync(product); 
                     }
-                    // hasChanges should already be true, but let's ensure it
+                    // hasChanges zaten true olmalı ancak yine de emin olalım
                     hasChanges = true;
                 }
 
-                // Remove dead animals from the list and the database
+                // Ölü hayvanları listeden ve veritabanından kaldır
                 var deadAnimals = Animals.Where(a => !a.IsAlive).ToList();
                 if (deadAnimals.Any())
                 {
                     foreach (var deadAnimal in deadAnimals)
                     {
-                        // This method deletes from both the DB and the list
+                        // Bu metot hem veritabanından hem listeden siler
                         await DeleteAnimalAsync(deadAnimal.Id); 
                     }
-                    // Since DeleteAnimalAsync already removes from the list, no need to remove again here
-                    hasChanges = false; // Changes were already saved within DeleteAnimalAsync.
+                    // DeleteAnimalAsync zaten listeden çıkardığı için burada tekrar çıkarmaya gerek yok
+                    hasChanges = false; // Değişiklikler DeleteAnimalAsync içinde zaten kaydedildi.
                 }
 
-                // If there are other changes (aging, progress), update the database
+                // Başka değişiklikler varsa (yaşlanma, ilerleme) veritabanını güncelle
                 if (hasChanges)
                 {
                     await SaveChangesToDatabaseAsync();

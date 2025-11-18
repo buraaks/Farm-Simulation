@@ -2,11 +2,11 @@ namespace FarmSimulation.UI.Forms
 {
     partial class MainForm
     {
-        // Required designer variable.
+        // Gerekli tasarımcı değişkeni.
         private System.ComponentModel.IContainer components = null;
 
-        // Clean up any resources being used.
-        // disposing: true if managed resources should be disposed; otherwise, false.
+        // Kullanılan tüm kaynakları temizle.
+        // disposing true ise yönetilen kaynaklar atılmalı, aksi halde false.
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -18,8 +18,8 @@ namespace FarmSimulation.UI.Forms
 
         #region Windows Form Designer generated code
 
-        // Required method for Designer support - do not modify
-        // the contents of this method with the code editor.
+        // Tasarımcı desteği için gerekli metot - değiştirmeyin
+        // Bu metodun içeriğini kod düzenleyici ile değiştirmeyin.
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
@@ -47,7 +47,7 @@ namespace FarmSimulation.UI.Forms
             ((System.ComponentModel.ISupportInitialize)productsGrid).BeginInit();
             SuspendLayout();
             // 
-            // animalsGrid
+            // animalsGrid denetimi
             // 
             animalsGrid.AllowUserToAddRows = false;
             animalsGrid.AllowUserToDeleteRows = false;
@@ -61,7 +61,7 @@ namespace FarmSimulation.UI.Forms
             animalsGrid.Size = new Size(600, 200);
             animalsGrid.TabIndex = 0;
             // 
-            // productsGrid
+            // productsGrid denetimi
             // 
             productsGrid.AllowUserToAddRows = false;
             productsGrid.AllowUserToDeleteRows = false;
@@ -75,7 +75,7 @@ namespace FarmSimulation.UI.Forms
             productsGrid.Size = new Size(600, 200);
             productsGrid.TabIndex = 1;
             // 
-            // cashLabel
+            // cashLabel etiketi
             // 
             cashLabel.Font = new Font("Arial", 12F, FontStyle.Bold);
             cashLabel.Location = new Point(650, 20);
@@ -84,7 +84,7 @@ namespace FarmSimulation.UI.Forms
             cashLabel.TabIndex = 2;
             cashLabel.Text = "Cash: 0.00 TL";
             // 
-            // buyAnimalButton
+            // buyAnimalButton düğmesi
             // 
             buyAnimalButton.Font = new Font("Arial", 10F);
             buyAnimalButton.Location = new Point(650, 70);
@@ -94,7 +94,7 @@ namespace FarmSimulation.UI.Forms
             buyAnimalButton.Text = "Buy Animal";
             buyAnimalButton.Click += BuyAnimalButton_Click;
             // 
-            // sellSelectedProductButton
+            // sellSelectedProductButton düğmesi
             // 
             sellSelectedProductButton.Font = new Font("Arial", 9F);
             sellSelectedProductButton.Location = new Point(650, 220);
@@ -104,7 +104,7 @@ namespace FarmSimulation.UI.Forms
             sellSelectedProductButton.Text = "Sell Selected Product";
             sellSelectedProductButton.Click += SellSelectedProductButton_Click;
             // 
-            // sellAllProductsButton
+            // sellAllProductsButton düğmesi
             // 
             sellAllProductsButton.Font = new Font("Arial", 10F);
             sellAllProductsButton.Location = new Point(650, 270);
@@ -114,7 +114,7 @@ namespace FarmSimulation.UI.Forms
             sellAllProductsButton.Text = "Sell All Products";
             sellAllProductsButton.Click += SellAllProductsButton_Click;
             // 
-            // sellProductsButton
+            // sellProductsButton düğmesi
             // 
             sellProductsButton.Font = new Font("Arial", 10F);
             sellProductsButton.Location = new Point(650, 320);
@@ -124,7 +124,7 @@ namespace FarmSimulation.UI.Forms
             sellProductsButton.Text = "Sell Products";
             sellProductsButton.Click += SellProductsButton_Click;
             // 
-            // deleteSoldProductsButton
+            // deleteSoldProductsButton düğmesi
             // 
             deleteSoldProductsButton.Font = new Font("Arial", 10F);
             deleteSoldProductsButton.Location = new Point(650, 370);
@@ -134,12 +134,12 @@ namespace FarmSimulation.UI.Forms
             deleteSoldProductsButton.Text = "Delete Sold Products";
             deleteSoldProductsButton.Click += DeleteSoldProductsButton_Click;
             // 
-            // simulationTimer
+            // simulationTimer zamanlayıcısı
             // 
             simulationTimer = new System.Windows.Forms.Timer(components);
             simulationTimer.Interval = 1000;
             // 
-            // resetGameButton
+            // resetGameButton düğmesi
             // 
             resetGameButton.BackColor = Color.OrangeRed;
             resetGameButton.Font = new Font("Arial", 10F);
@@ -151,84 +151,84 @@ namespace FarmSimulation.UI.Forms
             resetGameButton.UseVisualStyleBackColor = false;
             resetGameButton.Click += ResetGameButton_Click;
             // 
-            // dataGridViewTextBoxColumn1
+            // dataGridViewTextBoxColumn1 sütunu
             // 
             dataGridViewTextBoxColumn1.HeaderText = "ID";
             dataGridViewTextBoxColumn1.MinimumWidth = 6;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             dataGridViewTextBoxColumn1.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn2
+            // dataGridViewTextBoxColumn2 sütunu
             // 
             dataGridViewTextBoxColumn2.HeaderText = "Name";
             dataGridViewTextBoxColumn2.MinimumWidth = 6;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn3
+            // dataGridViewTextBoxColumn3 sütunu
             // 
             dataGridViewTextBoxColumn3.HeaderText = "Age";
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn4
+            // dataGridViewTextBoxColumn4 sütunu
             // 
             dataGridViewTextBoxColumn4.HeaderText = "Type";
             dataGridViewTextBoxColumn4.MinimumWidth = 6;
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn5
+            // dataGridViewTextBoxColumn5 sütunu
             // 
             dataGridViewTextBoxColumn5.HeaderText = "Is Alive";
             dataGridViewTextBoxColumn5.MinimumWidth = 6;
             dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn6
+            // dataGridViewTextBoxColumn6 sütunu
             // 
             dataGridViewTextBoxColumn6.HeaderText = "Production Progress";
             dataGridViewTextBoxColumn6.MinimumWidth = 6;
             dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             dataGridViewTextBoxColumn6.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn7
+            // dataGridViewTextBoxColumn7 sütunu
             // 
             dataGridViewTextBoxColumn7.HeaderText = "ID";
             dataGridViewTextBoxColumn7.MinimumWidth = 6;
             dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             dataGridViewTextBoxColumn7.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn8
+            // dataGridViewTextBoxColumn8 sütunu
             // 
             dataGridViewTextBoxColumn8.HeaderText = "Product Type";
             dataGridViewTextBoxColumn8.MinimumWidth = 6;
             dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             dataGridViewTextBoxColumn8.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn9
+            // dataGridViewTextBoxColumn9 sütunu
             // 
             dataGridViewTextBoxColumn9.HeaderText = "Quantity";
             dataGridViewTextBoxColumn9.MinimumWidth = 6;
             dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             dataGridViewTextBoxColumn9.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn10
+            // dataGridViewTextBoxColumn10 sütunu
             // 
             dataGridViewTextBoxColumn10.HeaderText = "Price";
             dataGridViewTextBoxColumn10.MinimumWidth = 6;
             dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             dataGridViewTextBoxColumn10.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn11
+            // dataGridViewTextBoxColumn11 sütunu
             // 
             dataGridViewTextBoxColumn11.HeaderText = "Is Sold";
             dataGridViewTextBoxColumn11.MinimumWidth = 6;
             dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
             dataGridViewTextBoxColumn11.ReadOnly = true;
             // 
-            // MainForm
+            // MainForm ayarları
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
