@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FarmSimulation.Entities
 {
-    // Tarım simülasyonundaki nakit parayı temsil eder
+    // Nakit varlığı
     public class Cash
     {
         [Key]
@@ -17,14 +17,14 @@ namespace FarmSimulation.Entities
             Amount = GameSettings.InitialCash;
         }
 
-        // Nakit miktarına para ekler
+        // Nakit ekle
         public void Add(decimal value)
         {
             if (value > 0) 
                 Amount += value;
         }
 
-        // Nakit miktarından para çıkarır
+        // Nakit düş
         public bool Subtract(decimal value)
         {
             if (Amount >= value)

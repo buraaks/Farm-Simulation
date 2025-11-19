@@ -70,17 +70,17 @@ namespace FarmSimulation.UI.Forms
 
                 decimal price = GetAnimalPrice(selectedType);
 
-                // Yeterli nakit olup olmadığını kontrol et
+                // Nakit yeterli mi?
                 if (businessService.Cash.Amount >= price)
                 {
-                    // Nakitten fiyatı düş
+                    // Nakit düş
                     businessService.Cash.Amount -= price;
 
-                    // Yeni hayvanı oluştur ve ekle
+                    // Hayvan oluştur/ekle
                     Animal newAnimal = businessService.CreateAnimal(selectedType, animalName);
                     await businessService.AddAnimalAsync(newAnimal);
                     
-                    // Nakit değişikliğini veritabanına kaydet
+                    // Nakit kaydet
                     businessService.dataAccess.UpdateCash(businessService.Cash);
                     await businessService.dataAccess.SaveChangesAsync();
 

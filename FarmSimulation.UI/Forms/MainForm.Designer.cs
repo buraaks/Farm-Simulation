@@ -1,3 +1,4 @@
+using FarmSimulation.UI.CustomControls;
 namespace FarmSimulation.UI.Forms
 {
     partial class MainForm
@@ -29,7 +30,7 @@ namespace FarmSimulation.UI.Forms
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn6 = new DataGridViewProgressBarColumn();
             productsGrid = new DataGridView();
             dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
@@ -173,7 +174,7 @@ namespace FarmSimulation.UI.Forms
             // sellProductsButton
             // 
             sellProductsButton.Font = new Font("Arial", 10F);
-            sellProductsButton.Location = new Point(650, 208);
+            sellProductsButton.Location = new Point(650, 220);
             sellProductsButton.Name = "sellProductsButton";
             sellProductsButton.Size = new Size(120, 40);
             sellProductsButton.TabIndex = 8;
@@ -183,7 +184,7 @@ namespace FarmSimulation.UI.Forms
             // deleteSoldProductsButton
             // 
             deleteSoldProductsButton.Font = new Font("Arial", 10F);
-            deleteSoldProductsButton.Location = new Point(650, 258);
+            deleteSoldProductsButton.Location = new Point(650, 270);
             deleteSoldProductsButton.Name = "deleteSoldProductsButton";
             deleteSoldProductsButton.Size = new Size(120, 40);
             deleteSoldProductsButton.TabIndex = 9;
@@ -194,7 +195,7 @@ namespace FarmSimulation.UI.Forms
             // 
             resetGameButton.BackColor = Color.OrangeRed;
             resetGameButton.Font = new Font("Arial", 10F);
-            resetGameButton.Location = new Point(650, 308);
+            resetGameButton.Location = new Point(650, 320);
             resetGameButton.Name = "resetGameButton";
             resetGameButton.Size = new Size(120, 40);
             resetGameButton.TabIndex = 10;
@@ -241,7 +242,7 @@ namespace FarmSimulation.UI.Forms
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private DataGridViewProgressBarColumn dataGridViewTextBoxColumn6;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;

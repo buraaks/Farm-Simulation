@@ -25,7 +25,6 @@ namespace FarmSimulation.UI.Forms
         {
             InitializeComponent();
             InitializeDatabase();
-            InitializeGridColumns();
             InitializeTimer();
 
             this.Load += MainForm_Load;
@@ -33,24 +32,6 @@ namespace FarmSimulation.UI.Forms
 
         private void InitializeGridColumns()
         {
-            sellProductsButton.Location = new Point(650, 220);
-            deleteSoldProductsButton.Location = new Point(650, 270);
-            resetGameButton.Location = new Point(650, 320);
-
-            animalsGrid.Columns.Clear();
-            
-            animalsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "ID", ReadOnly = true, FillWeight = 30 });
-            animalsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "AnimalName", HeaderText = "Name", ReadOnly = true, FillWeight = 70 });
-            animalsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Age", HeaderText = "Age", ReadOnly = true, FillWeight = 30 });
-            animalsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Type", HeaderText = "Type", ReadOnly = true, FillWeight = 60 });
-            animalsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "IsAlive", HeaderText = "Is Alive", ReadOnly = true, FillWeight = 40 });
-            
-            var progressColumn = new DataGridViewProgressBarColumn();
-            progressColumn.Name = "ProductionProgress";
-            progressColumn.HeaderText = "Production Progress";
-            progressColumn.ReadOnly = true;
-            progressColumn.FillWeight = 100;
-            animalsGrid.Columns.Add(progressColumn);
         }
 
         private async void MainForm_Load(object? sender, EventArgs e)
@@ -74,10 +55,7 @@ namespace FarmSimulation.UI.Forms
                 });
 
                 dbContext = new FarmDbContext(optionsBuilder.Options);
-                
-                // Veritabanının mevcut modele uyması için silinip yeniden oluşturulduğundan emin ol.
-                // Bu işlem geliştirme sürecinde faydalıdır ancak her başlatmada tüm verileri siler.
-                dbContext.Database.EnsureDeleted();
+            
                 dbContext.Database.EnsureCreated();
             }
             catch (Exception ex)

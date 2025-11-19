@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FarmSimulation.Business.Services
 {
-    // Çiftlik simülasyonunun iş mantığını yönetir
+    // İş mantığı (simülasyon)
     public class FarmBusinessService
     {
         private readonly FarmDataAccess _dataAccess;
@@ -171,7 +171,7 @@ namespace FarmSimulation.Business.Services
 
         public async Task SimulateTickAsync()
         {
-            // Race condition (yarış durumu) koruması
+            // Yarış durumu koruması
             if (_isSimulating) return;
             _isSimulating = true;
 
@@ -184,15 +184,15 @@ namespace FarmSimulation.Business.Services
 
                 bool hasChanges = false;
                 
-                // Önce yeni ürünleri tutacak bir liste oluşturalım
+                // Üretilecek ürünler listesi
                 var newProducts = new List<Product>();
 
-                // ToList() ile elde edilen kopya üzerinde çalışmak koleksiyonda değişiklik yapmaya izin verir
+                // Koleksiyon kopyası üzerinde çalış
                 foreach (var animal in Animals.ToList()) 
                 {
                     if (animal.IsAlive)
                     {
-                        // Ürün üretim ilerlemesi (hassas double tabanlı)
+                        // Üretim ilerlemesi
                         if (animal.CanProduce && animal.ProductProductionTime > 0)
                         {
                             double progressIncrease = (100.0 / animal.ProductProductionTime) * elapsedSeconds;
@@ -202,7 +202,7 @@ namespace FarmSimulation.Business.Services
                                 hasChanges = true;
                             }
 
-                            // Üretim tamamlandığında ürünleri otomatik olarak topla
+                            // Üretim tamamlanınca otomatik toplama
                             if (animal.ProductProductionProgress >= 100)
                             {
                                 int productsMade = (int)(animal.ProductProductionProgress / 100);
@@ -239,32 +239,32 @@ namespace FarmSimulation.Business.Services
                     }
                 }
 
-                // Yeni üretilen ürünleri veritabanına ve mevcut listeye ekle
+                // Yeni ürünleri ekle
                 if (newProducts.Any())
                 {
                     foreach (var product in newProducts)
                     {
-                        // AddProductAsync hem veritabanına hem de 'Products' listesine ekler
+                        // Veritabanına ve listeye ekle
                         await AddProductAsync(product); 
                     }
-                    // hasChanges zaten true olmalı ancak yine de emin olalım
+
                     hasChanges = true;
                 }
 
-                // Ölü hayvanları listeden ve veritabanından kaldır
+                // Ölü hayvanları kaldır
                 var deadAnimals = Animals.Where(a => !a.IsAlive).ToList();
                 if (deadAnimals.Any())
                 {
                     foreach (var deadAnimal in deadAnimals)
                     {
-                        // Bu metot hem veritabanından hem listeden siler
+                        // DB ve listeden sil
                         await DeleteAnimalAsync(deadAnimal.Id); 
                     }
-                    // DeleteAnimalAsync zaten listeden çıkardığı için burada tekrar çıkarmaya gerek yok
+
                     hasChanges = false; // Değişiklikler DeleteAnimalAsync içinde zaten kaydedildi.
                 }
 
-                // Başka değişiklikler varsa (yaşlanma, ilerleme) veritabanını güncelle
+                // Değişiklikleri kaydet
                 if (hasChanges)
                 {
                     await SaveChangesToDatabaseAsync();

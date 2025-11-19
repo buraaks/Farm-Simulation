@@ -44,7 +44,7 @@ namespace FarmSimulation.UI.CustomControls
             }
             else
             {
-                // Değer sayı değilse sadece metni çiz
+                // Sayı değilse metin çiz
                 base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
             }
         }
