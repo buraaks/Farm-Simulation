@@ -18,7 +18,6 @@ C:\Users\burak\FarmSimulation\FarmSimulation.Business\bin\Debug\net9.0\FarmSimul
 C:\Users\burak\FarmSimulation\FarmSimulation.Business\bin\Debug\net9.0\FarmSimulation.Data.pdb
 C:\Users\burak\FarmSimulation\FarmSimulation.Business\obj\Debug\net9.0\FarmSimulation.Business.genruntimeconfig.cache
 C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\bin\Debug\net9.0\FarmSimulation.Business.deps.json
-C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\bin\Debug\net9.0\FarmSimulation.Business.runtimeconfig.json
 C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\bin\Debug\net9.0\FarmSimulation.Business.dll
 C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\bin\Debug\net9.0\FarmSimulation.Business.pdb
 C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\bin\Debug\net9.0\FarmSimulation.Data.dll
@@ -35,5 +34,4 @@ C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\obj\Debu
 C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\obj\Debug\net9.0\FarmSimulation.Business.dll
 C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\obj\Debug\net9.0\refint\FarmSimulation.Business.dll
 C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\obj\Debug\net9.0\FarmSimulation.Business.pdb
-C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\obj\Debug\net9.0\FarmSimulation.Business.genruntimeconfig.cache
 C:\Users\burak\OneDrive\Desktop\Farm-Simulation\FarmSimulation.Business\obj\Debug\net9.0\ref\FarmSimulation.Business.dll

@@ -475,8 +475,7 @@
       "FarmSimulation.Business/1.0.0": {
         "dependencies": {
           "FarmSimulation.Data": "1.0.0",
-          "FarmSimulation.Entities": "1.0.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.10"
+          "FarmSimulation.Entities": "1.0.0"
         },
         "runtime": {
           "FarmSimulation.Business.dll": {

@@ -33,8 +33,6 @@ namespace FarmSimulation.UI.Forms
 
         private void InitializeGridColumns()
         {
-            sellSelectedProductButton.Location = new Point(650, 120);
-            sellAllProductsButton.Location = new Point(650, 170);
             sellProductsButton.Location = new Point(650, 220);
             deleteSoldProductsButton.Location = new Point(650, 270);
             resetGameButton.Location = new Point(650, 320);
@@ -70,7 +68,6 @@ namespace FarmSimulation.UI.Forms
                 var configuration = builder.Build();
 
                 var optionsBuilder = new DbContextOptionsBuilder<FarmDbContext>();
-                // Geçici hatalara dayanıklılık için EnableRetryOnFailure ekle
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), sqlServerOptionsAction: sqlOptions =>
                 {
                     sqlOptions.EnableRetryOnFailure();
@@ -185,50 +182,6 @@ namespace FarmSimulation.UI.Forms
             }
         }
 
-        private async void SellSelectedProductButton_Click(object? sender, EventArgs e)
-        {
-            if (businessService == null) return;
-            
-            try
-            {
-                if (productsGrid.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Please select a product first.", "Warning",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                var selectedRow = productsGrid.SelectedRows[0];
-                var productId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
-                var product = businessService.Products.FirstOrDefault(p => p.Id == productId);
-
-                if (product == null) return;
-
-                if (!product.IsSold)
-                {
-                    product.IsSold = true;
-                    businessService.Cash.Amount += product.Price * product.Quantity;
-
-                    businessService.dataAccess.UpdateProduct(product);
-                    businessService.dataAccess.UpdateCash(businessService.Cash);
-                    await businessService.dataAccess.SaveChangesAsync();
-
-                    MessageBox.Show($"{product.Name} sold for {product.Price * product.Quantity:C}!", "Success",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    await UpdateUIAsync();
-                }
-                else
-                {
-                    MessageBox.Show("This product has already been sold.", "Info",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error while selling product: {ex.Message}", "Error", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private async void SellAllProductsButton_Click(object sender, EventArgs e)
         {

@@ -1115,8 +1115,7 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "FarmSimulation.Data": "1.0.0",
-          "FarmSimulation.Entities": "1.0.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.10"
+          "FarmSimulation.Entities": "1.0.0"
         },
         "compile": {
           "bin/placeholder/FarmSimulation.Business.dll": {}
