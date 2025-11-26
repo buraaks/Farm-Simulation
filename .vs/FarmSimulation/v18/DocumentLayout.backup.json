@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|c:\\users\\burak\\onedrive\\desktop\\farm-simulation\\farmsimulation.ui\\customcontrols\\datagridviewprogressbarcolumn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|solutionrelative:farmsimulation.ui\\customcontrols\\datagridviewprogressbarcolumn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E263D0C7-276A-443A-917D-3EF4F7D2F77E}|FarmSimulation.Entities\\FarmSimulation.Entities.csproj|c:\\users\\burak\\onedrive\\desktop\\farm-simulation\\farmsimulation.entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E263D0C7-276A-443A-917D-3EF4F7D2F77E}|FarmSimulation.Entities\\FarmSimulation.Entities.csproj|solutionrelative:farmsimulation.entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|c:\\users\\burak\\onedrive\\desktop\\farm-simulation\\farmsimulation.ui\\appsettings.json||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|solutionrelative:farmsimulation.ui\\appsettings.json||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|c:\\users\\burak\\onedrive\\desktop\\farm-simulation\\farmsimulation.ui\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,14 +13,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\farmsimulation.ui\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|solutionrelative:farmsimulation.ui\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|c:\\users\\burak\\onedrive\\desktop\\farm-simulation\\farmsimulation.ui\\forms\\buyanimalform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|solutionrelative:farmsimulation.ui\\forms\\buyanimalform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|c:\\users\\burak\\onedrive\\desktop\\farm-simulation\\farmsimulation.ui\\forms\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F2B3C5A8-6A8F-49A8-9B7D-2E83C5D8A9E2}|FarmSimulation.UI\\FarmSimulation.UI.csproj|solutionrelative:farmsimulation.ui\\forms\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -47,75 +35,39 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DataGridViewProgressBarColumn.cs",
-              "DocumentMoniker": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\CustomControls\\DataGridViewProgressBarColumn.cs",
-              "RelativeDocumentMoniker": "FarmSimulation.UI\\CustomControls\\DataGridViewProgressBarColumn.cs",
-              "ToolTip": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\CustomControls\\DataGridViewProgressBarColumn.cs",
-              "RelativeToolTip": "FarmSimulation.UI\\CustomControls\\DataGridViewProgressBarColumn.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-19T13:31:45.094Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\appsettings.json",
+              "RelativeDocumentMoniker": "FarmSimulation.UI\\appsettings.json",
+              "ToolTip": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\appsettings.json",
+              "RelativeToolTip": "FarmSimulation.UI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-26T06:44:24.695Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MainForm.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\Forms\\MainForm.Designer.cs",
-              "RelativeDocumentMoniker": "FarmSimulation.UI\\Forms\\MainForm.Designer.cs",
-              "ToolTip": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\Forms\\MainForm.Designer.cs",
-              "RelativeToolTip": "FarmSimulation.UI\\Forms\\MainForm.Designer.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-19T13:30:42.857Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Product.cs",
-              "DocumentMoniker": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.Entities\\Product.cs",
-              "RelativeDocumentMoniker": "FarmSimulation.Entities\\Product.cs",
-              "ToolTip": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.Entities\\Product.cs",
-              "RelativeToolTip": "FarmSimulation.Entities\\Product.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAkwCcAAAABAAAAAAAAAA==",
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\Forms\\MainForm.cs",
+              "RelativeDocumentMoniker": "FarmSimulation.UI\\Forms\\MainForm.cs",
+              "ToolTip": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\Forms\\MainForm.cs",
+              "RelativeToolTip": "FarmSimulation.UI\\Forms\\MainForm.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAQwCgBAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T06:55:26.19Z",
+              "WhenOpened": "2025-11-24T06:56:04.173Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BuyAnimalForm.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\Forms\\BuyAnimalForm.Designer.cs",
-              "RelativeDocumentMoniker": "FarmSimulation.UI\\Forms\\BuyAnimalForm.Designer.cs",
-              "ToolTip": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\Forms\\BuyAnimalForm.Designer.cs",
-              "RelativeToolTip": "FarmSimulation.UI\\Forms\\BuyAnimalForm.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T06:55:02.405Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "MainForm.cs [Tasar\u0131m]",
               "DocumentMoniker": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\Forms\\MainForm.cs",
               "RelativeDocumentMoniker": "FarmSimulation.UI\\Forms\\MainForm.cs",
               "ToolTip": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\Forms\\MainForm.cs [Tasar\u0131m]",
               "RelativeToolTip": "FarmSimulation.UI\\Forms\\MainForm.cs [Tasar\u0131m]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T06:54:59.558Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MainForm.cs",
-              "DocumentMoniker": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\Forms\\MainForm.cs",
-              "RelativeDocumentMoniker": "FarmSimulation.UI\\Forms\\MainForm.cs",
-              "ToolTip": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.UI\\Forms\\MainForm.cs",
-              "RelativeToolTip": "FarmSimulation.UI\\Forms\\MainForm.cs",
-              "ViewState": "AgIAAJAAAAAAAAAAAAAywDoAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T06:54:58.331Z"
+              "WhenOpened": "2025-11-24T06:55:59.021Z"
             }
           ]
         },
