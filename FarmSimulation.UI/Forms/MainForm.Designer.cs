@@ -32,7 +32,6 @@ namespace FarmSimulation.UI.Forms
             dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn6 = new DataGridViewProgressBarColumn();
             productsGrid = new DataGridView();
-            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn10 = new DataGridViewTextBoxColumn();
@@ -109,20 +108,13 @@ namespace FarmSimulation.UI.Forms
             productsGrid.AllowUserToDeleteRows = false;
             productsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             productsGrid.ColumnHeadersHeight = 29;
-            productsGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn10, dataGridViewTextBoxColumn11 });
+            productsGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn10, dataGridViewTextBoxColumn11 });
             productsGrid.Location = new Point(20, 250);
             productsGrid.Name = "productsGrid";
             productsGrid.ReadOnly = true;
             productsGrid.RowHeadersWidth = 51;
             productsGrid.Size = new Size(600, 200);
             productsGrid.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            dataGridViewTextBoxColumn7.HeaderText = "ID";
-            dataGridViewTextBoxColumn7.MinimumWidth = 6;
-            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            dataGridViewTextBoxColumn7.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn8
             // 
@@ -243,7 +235,6 @@ namespace FarmSimulation.UI.Forms
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private DataGridViewProgressBarColumn dataGridViewTextBoxColumn6;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;

@@ -202,20 +202,29 @@ namespace FarmSimulation.UI.Forms
                         animalsGrid.Rows[index].DefaultCellStyle.BackColor = Color.LightCoral;
                 }
 
-                productsGrid.Rows.Clear();
-                foreach (var product in businessService.Products)
-                {
-                    int index = productsGrid.Rows.Add(
-                        product.Id,
-                        product.ProductType,
-                        product.Quantity,
-                        product.Price.ToString("C"),
-                        product.IsSold ? "Yes" : "No"
-                    );
-                    productsGrid.Rows[index].DefaultCellStyle.BackColor =
-                        product.IsSold ? Color.LightGreen : Color.LightBlue;
-                }
-            }
+                        productsGrid.Rows.Clear();
+                
+                        var groupedProducts = businessService.Products
+                            .GroupBy(p => p.ProductType)
+                            .Select(g => new
+                            {
+                                ProductType = g.Key,
+                                Quantity = g.Sum(p => p.Quantity),
+                                Price = g.First().Price, 
+                                IsSold = g.All(p => p.IsSold)
+                            });
+                
+                        foreach (var product in groupedProducts)
+                        {
+                            int index = productsGrid.Rows.Add(
+                                product.ProductType,
+                                product.Quantity,
+                                product.Price.ToString("C"),
+                                product.IsSold ? "Yes" : "No"
+                            );
+                            productsGrid.Rows[index].DefaultCellStyle.BackColor =
+                                product.IsSold ? Color.LightGreen : Color.LightBlue;
+                        }            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error while updating UI: {ex.Message}", "Error", 
