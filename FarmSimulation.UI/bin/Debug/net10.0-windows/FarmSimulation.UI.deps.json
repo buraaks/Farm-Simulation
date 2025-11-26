@@ -503,8 +503,7 @@
       "FarmSimulation.Business/1.0.0": {
         "dependencies": {
           "FarmSimulation.Data": "1.0.0",
-          "FarmSimulation.Entities": "1.0.0",
-          "Guna.UI2.WinForms": "2.0.4.7"
+          "FarmSimulation.Entities": "1.0.0"
         },
         "runtime": {
           "FarmSimulation.Business.dll": {
@@ -516,7 +515,6 @@
       "FarmSimulation.Data/1.0.0": {
         "dependencies": {
           "FarmSimulation.Entities": "1.0.0",
-          "Guna.UI2.WinForms": "2.0.4.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.10"
         },
         "runtime": {
@@ -527,9 +525,6 @@
         }
       },
       "FarmSimulation.Entities/1.0.0": {
-        "dependencies": {
-          "Guna.UI2.WinForms": "2.0.4.7"
-        },
         "runtime": {
           "FarmSimulation.Entities.dll": {
             "assemblyVersion": "1.0.0.0",
