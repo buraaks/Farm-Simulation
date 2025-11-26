@@ -48,6 +48,11 @@ namespace FarmSimulation.UI.Forms
             return businessService.GetAnimalPrice(animalType);
         }
 
+        private string GetFullErrorMessage(Exception ex)
+        {
+            return ex.ToString(); // For debugging
+        }
+
         private async void BuyButton_Click(object? sender, EventArgs e)
         {
             try
@@ -55,7 +60,7 @@ namespace FarmSimulation.UI.Forms
                 string? animalName = animalNameTextBox.Text.Trim();
                 if (string.IsNullOrEmpty(animalName))
                 {
-                    MessageBox.Show("Please enter an animal name.", "Warning", 
+                    MessageBox.Show(ErrorMessages.AnimalNameRequired, "Uyarı", 
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -63,7 +68,7 @@ namespace FarmSimulation.UI.Forms
                 string? selectedType = animalTypeComboBox.SelectedItem?.ToString();
                 if (string.IsNullOrEmpty(selectedType))
                 {
-                    MessageBox.Show("Please select an animal type.", "Warning", 
+                    MessageBox.Show(ErrorMessages.AnimalTypeRequired, "Uyarı", 
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -84,20 +89,20 @@ namespace FarmSimulation.UI.Forms
                     businessService.dataAccess.UpdateCash(businessService.Cash);
                     await businessService.dataAccess.SaveChangesAsync();
 
-                    MessageBox.Show($"{selectedType} '{animalName}' was purchased successfully!", "Success",
+                    MessageBox.Show($"{selectedType} '{animalName}' başarıyla satın alındı!", "Başarılı",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show($"Insufficient funds! You need {price:C} to buy this animal.", "Error",
+                    MessageBox.Show(string.Format(ErrorMessages.InsufficientFunds, price.ToString("C")), "Hata",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error while purchasing animal: {ex.Message}", "Error", 
+                MessageBox.Show(GetFullErrorMessage(ex), "Hata", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -30,8 +30,6 @@ namespace FarmSimulation.Entities
         
         public double ProductProductionProgress { get; set; }
         
-        public bool IsAlive { get; set; }
-        
         public bool CanProduce { get; set; }
         
         public bool IsReadyToSell { get; set; }
@@ -41,7 +39,6 @@ namespace FarmSimulation.Entities
             Name = string.Empty;
             Gender = string.Empty;
             Type = string.Empty;
-            IsAlive = true;
             CanProduce = true;
             DateOfBirth = DateTime.Now;
         }

@@ -23,9 +23,6 @@ namespace FarmSimulation.Entities
         
         public DateTime DateProduced { get; set; }
         
-        public bool IsSold { get; set; }
-        
-        [MaxLength(50)]
         public string ProducedByAnimalType { get; set; }
 
         public Product()
@@ -34,7 +31,6 @@ namespace FarmSimulation.Entities
             Name = string.Empty;
             ProducedByAnimalType = string.Empty;
             DateProduced = DateTime.Now;
-            IsSold = false;
         }
     }
 }

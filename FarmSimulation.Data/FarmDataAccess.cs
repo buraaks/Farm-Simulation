@@ -79,18 +79,6 @@ namespace FarmSimulation.Data
             return await dbSet.ToListAsync();
         }
 
-        public async Task<List<Product>> GetUnsoldProductsAsync()
-        {
-            var dbSet = _context.Set<Product>();
-            return await dbSet.Where(p => !p.IsSold).ToListAsync();
-        }
-
-        public async Task<List<Product>> GetSoldProductsAsync()
-        {
-            var dbSet = _context.Set<Product>();
-            return await dbSet.Where(p => p.IsSold).ToListAsync();
-        }
-
         public async Task DeleteProductAsync(int productId)
         {
             var dbSet = _context.Set<Product>();

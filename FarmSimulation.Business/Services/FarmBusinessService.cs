@@ -46,7 +46,7 @@ namespace FarmSimulation.Business.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error loading data from database: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.DataLoadError, ex.Message), ex);
             }
         }
 
@@ -60,7 +60,7 @@ namespace FarmSimulation.Business.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error adding animal: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.AddAnimalError, ex.Message), ex);
             }
         }
 
@@ -82,14 +82,13 @@ namespace FarmSimulation.Business.Services
                     localAnimal.MaxAge = animal.MaxAge;
                     localAnimal.ProductProductionTime = animal.ProductProductionTime;
                     localAnimal.ProductProductionProgress = animal.ProductProductionProgress;
-                    localAnimal.IsAlive = animal.IsAlive;
                     localAnimal.CanProduce = animal.CanProduce;
                     localAnimal.IsReadyToSell = animal.IsReadyToSell;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error updating animal: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.UpdateAnimalError, ex.Message), ex);
             }
         }
 
@@ -103,7 +102,7 @@ namespace FarmSimulation.Business.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error deleting animal: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.DeleteAnimalError, ex.Message), ex);
             }
         }
 
@@ -117,7 +116,7 @@ namespace FarmSimulation.Business.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error adding product: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.AddProductError, ex.Message), ex);
             }
         }
 
@@ -136,13 +135,12 @@ namespace FarmSimulation.Business.Services
                     localProduct.Quantity = product.Quantity;
                     localProduct.Price = product.Price;
                     localProduct.DateProduced = product.DateProduced;
-                    localProduct.IsSold = product.IsSold;
                     localProduct.ProducedByAnimalType = product.ProducedByAnimalType;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error updating product: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.UpdateProductError, ex.Message), ex);
             }
         }
 
@@ -155,7 +153,7 @@ namespace FarmSimulation.Business.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error deleting product: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.DeleteProductError, ex.Message), ex);
             }
         }
 
@@ -171,7 +169,6 @@ namespace FarmSimulation.Business.Services
 
         public async Task SimulateTickAsync()
         {
-            // Yarış durumu koruması
             if (_isSimulating) return;
             _isSimulating = true;
 
@@ -182,97 +179,69 @@ namespace FarmSimulation.Business.Services
                 _lastSimulatedTime = currentTime;
                 double elapsedSeconds = timeSinceLastSimulation.TotalSeconds;
 
-                bool hasChanges = false;
-                
-                // Üretilecek ürünler listesi
+                var animalsToRemove = new List<Animal>();
                 var newProducts = new List<Product>();
 
-                // Koleksiyon kopyası üzerinde çalış
-                foreach (var animal in Animals.ToList()) 
+                foreach (var animal in Animals.ToList())
                 {
-                    if (animal.IsAlive)
+                    if (animal.Age >= animal.MaxAge)
                     {
-                        // Üretim ilerlemesi
-                        if (animal.CanProduce && animal.ProductProductionTime > 0)
+                        animalsToRemove.Add(animal);
+                        continue; 
+                    }
+
+                    if (animal.CanProduce && animal.ProductProductionTime > 0)
+                    {
+                        double progressIncrease = (100.0 / animal.ProductProductionTime) * elapsedSeconds;
+                        if (progressIncrease > 0)
                         {
-                            double progressIncrease = (100.0 / animal.ProductProductionTime) * elapsedSeconds;
-                            if (progressIncrease > 0)
+                            animal.ProductProductionProgress += progressIncrease;
+                        }
+
+                        if (animal.ProductProductionProgress >= 100)
+                        {
+                            int productsMade = (int)(animal.ProductProductionProgress / 100);
+                            for (int i = 0; i < productsMade; i++)
                             {
-                                animal.ProductProductionProgress += progressIncrease;
-                                hasChanges = true;
+                                var newProduct = CreateProductForAnimal(animal);
+                                newProducts.Add(newProduct);
                             }
+                            animal.ProductProductionProgress %= 100;
+                        }
+                    }
 
-                            // Üretim tamamlanınca otomatik toplama
-                            if (animal.ProductProductionProgress >= 100)
-                            {
-                                int productsMade = (int)(animal.ProductProductionProgress / 100);
-                                for (int i = 0; i < productsMade; i++)
-                                {
-                                    var newProduct = CreateProductForAnimal(animal);
-                                    newProducts.Add(newProduct);
-                                }
-                                animal.ProductProductionProgress %= 100; // Kalan ilerlemeyi sakla
-                            }
-                        }
+                    if (!_animalTimeAccumulator.ContainsKey(animal.Id))
+                    {
+                        _animalTimeAccumulator[animal.Id] = 0;
+                    }
+                    _animalTimeAccumulator[animal.Id] += elapsedSeconds;
 
-                        // Yaşlanma sistemi
-                        if (!_animalTimeAccumulator.ContainsKey(animal.Id))
-                        {
-                            _animalTimeAccumulator[animal.Id] = 0;
-                        }
-                        _animalTimeAccumulator[animal.Id] += elapsedSeconds;
-
-                        if (_animalTimeAccumulator[animal.Id] >= GameSettings.SecondsPerGameDay)
-                        {
-                            int daysToAge = (int)(_animalTimeAccumulator[animal.Id] / GameSettings.SecondsPerGameDay);
-                            animal.Age += daysToAge;
-                            _animalTimeAccumulator[animal.Id] %= GameSettings.SecondsPerGameDay;
-                            hasChanges = true;
-                        }
-                        
-                        // Ölüm kontrolü
-                        if (animal.Age >= animal.MaxAge)
-                        {
-                            animal.IsAlive = false;
-                            hasChanges = true;
-                        }
+                    if (_animalTimeAccumulator[animal.Id] >= GameSettings.SecondsPerGameDay)
+                    {
+                        int daysToAge = (int)(_animalTimeAccumulator[animal.Id] / GameSettings.SecondsPerGameDay);
+                        animal.Age += daysToAge;
+                        _animalTimeAccumulator[animal.Id] %= GameSettings.SecondsPerGameDay;
                     }
                 }
 
-                // Yeni ürünleri ekle
+                foreach (var animal in animalsToRemove)
+                {
+                    await DeleteAnimalAsync(animal.Id);
+                }
+
                 if (newProducts.Any())
                 {
                     foreach (var product in newProducts)
                     {
-                        // Veritabanına ve listeye ekle
-                        await AddProductAsync(product); 
+                        await AddProductAsync(product);
                     }
-
-                    hasChanges = true;
                 }
-
-                // Ölü hayvanları kaldır
-                var deadAnimals = Animals.Where(a => !a.IsAlive).ToList();
-                if (deadAnimals.Any())
-                {
-                    foreach (var deadAnimal in deadAnimals)
-                    {
-                        // DB ve listeden sil
-                        await DeleteAnimalAsync(deadAnimal.Id); 
-                    }
-
-                    hasChanges = false; // Değişiklikler DeleteAnimalAsync içinde zaten kaydedildi.
-                }
-
-                // Değişiklikleri kaydet
-                if (hasChanges)
-                {
-                    await SaveChangesToDatabaseAsync();
-                }
+                
+                await SaveChangesToDatabaseAsync();
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error in simulation tick: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.SimulationError, ex.Message), ex);
             }
             finally
             {
@@ -331,16 +300,15 @@ namespace FarmSimulation.Business.Services
             try
             {
                 decimal totalEarnings = 0m;
-                var unsoldProducts = Products.Where(p => !p.IsSold).ToList();
+                var productsToSell = Products.ToList(); 
 
-                foreach (var product in unsoldProducts)
+                foreach (var product in productsToSell)
                 {
                     totalEarnings += product.Price * product.Quantity;
-                    product.IsSold = true;
-                    _dataAccess.UpdateProduct(product);
+                    await DeleteProductAsync(product.Id);
                 }
 
-                if (unsoldProducts.Any())
+                if (productsToSell.Any())
                 {
                     Cash.Amount += totalEarnings;
                     _dataAccess.UpdateCash(Cash);
@@ -351,7 +319,7 @@ namespace FarmSimulation.Business.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error selling products: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.ProductSaleError, ex.Message), ex);
             }
         }
 
@@ -407,7 +375,7 @@ namespace FarmSimulation.Business.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error saving changes: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.SaveChangesError, ex.Message), ex);
             }
         }
 
@@ -415,7 +383,7 @@ namespace FarmSimulation.Business.Services
         {
             try
             {
-                if (animal != null && animal.IsAlive && animal.CanProduce && animal.ProductProductionProgress >= 100)
+                if (animal != null && animal.CanProduce && animal.ProductProductionProgress >= 100)
                 {
                     var product = CreateProductForAnimal(animal);
                     await AddProductAsync(product);
@@ -429,7 +397,7 @@ namespace FarmSimulation.Business.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error collecting product: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.CollectProductError, ex.Message), ex);
             }
         }
 
@@ -439,7 +407,7 @@ namespace FarmSimulation.Business.Services
             {
                 var collectedProducts = new List<Product>();
 
-                foreach (var animal in Animals.Where(a => a.IsAlive && a.CanProduce && a.ProductProductionProgress >= 100).ToList())
+                foreach (var animal in Animals.Where(a => a.CanProduce && a.ProductProductionProgress >= 100).ToList())
                 {
                     var product = await CollectProductFromAnimalAsync(animal);
                     if (product != null && product.Name != ProductNames.Unknown)
@@ -452,30 +420,7 @@ namespace FarmSimulation.Business.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error collecting all products: {ex.Message}", ex);
-            }
-        }
-
-        public async Task<int> DeleteSoldProductsAsync()
-        {
-            try
-            {
-                int deletedCount = 0;
-                var soldProducts = await _dataAccess.GetSoldProductsAsync();
-
-                foreach (var product in soldProducts)
-                {
-                    await _dataAccess.DeleteProductAsync(product.Id);
-                    deletedCount++;
-                }
-
-                Products.RemoveAll(p => p.IsSold);
-
-                return deletedCount;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error deleting sold products: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.CollectAllProductsError, ex.Message), ex);
             }
         }
 
@@ -485,4 +430,3 @@ namespace FarmSimulation.Business.Services
         }
     }
 }
-

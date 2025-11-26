@@ -29,17 +29,14 @@ namespace FarmSimulation.UI.Forms
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn6 = new DataGridViewProgressBarColumn();
             productsGrid = new DataGridView();
             dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn10 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn11 = new DataGridViewTextBoxColumn();
             cashLabel = new Label();
             buyAnimalButton = new Button();
             sellProductsButton = new Button();
-            deleteSoldProductsButton = new Button();
             resetGameButton = new Button();
             simulationTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)animalsGrid).BeginInit();
@@ -52,7 +49,7 @@ namespace FarmSimulation.UI.Forms
             animalsGrid.AllowUserToDeleteRows = false;
             animalsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             animalsGrid.ColumnHeadersHeight = 29;
-            animalsGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6 });
+            animalsGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn6 });
             animalsGrid.Location = new Point(20, 20);
             animalsGrid.Name = "animalsGrid";
             animalsGrid.ReadOnly = true;
@@ -88,13 +85,6 @@ namespace FarmSimulation.UI.Forms
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn5
-            // 
-            dataGridViewTextBoxColumn5.HeaderText = "Is Alive";
-            dataGridViewTextBoxColumn5.MinimumWidth = 6;
-            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
             // dataGridViewTextBoxColumn6
             // 
             dataGridViewTextBoxColumn6.HeaderText = "Production Progress";
@@ -108,7 +98,7 @@ namespace FarmSimulation.UI.Forms
             productsGrid.AllowUserToDeleteRows = false;
             productsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             productsGrid.ColumnHeadersHeight = 29;
-            productsGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn10, dataGridViewTextBoxColumn11 });
+            productsGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn10 });
             productsGrid.Location = new Point(20, 250);
             productsGrid.Name = "productsGrid";
             productsGrid.ReadOnly = true;
@@ -136,13 +126,6 @@ namespace FarmSimulation.UI.Forms
             dataGridViewTextBoxColumn10.MinimumWidth = 6;
             dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             dataGridViewTextBoxColumn10.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            dataGridViewTextBoxColumn11.HeaderText = "Is Sold";
-            dataGridViewTextBoxColumn11.MinimumWidth = 6;
-            dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            dataGridViewTextBoxColumn11.ReadOnly = true;
             // 
             // cashLabel
             // 
@@ -173,21 +156,11 @@ namespace FarmSimulation.UI.Forms
             sellProductsButton.Text = "Sell Products";
             sellProductsButton.Click += SellProductsButton_Click;
             // 
-            // deleteSoldProductsButton
-            // 
-            deleteSoldProductsButton.Font = new Font("Arial", 10F);
-            deleteSoldProductsButton.Location = new Point(650, 270);
-            deleteSoldProductsButton.Name = "deleteSoldProductsButton";
-            deleteSoldProductsButton.Size = new Size(120, 40);
-            deleteSoldProductsButton.TabIndex = 9;
-            deleteSoldProductsButton.Text = "Delete Sold Products";
-            deleteSoldProductsButton.Click += DeleteSoldProductsButton_Click;
-            // 
             // resetGameButton
             // 
             resetGameButton.BackColor = Color.OrangeRed;
             resetGameButton.Font = new Font("Arial", 10F);
-            resetGameButton.Location = new Point(650, 320);
+            resetGameButton.Location = new Point(650, 270);
             resetGameButton.Name = "resetGameButton";
             resetGameButton.Size = new Size(120, 40);
             resetGameButton.TabIndex = 10;
@@ -209,7 +182,6 @@ namespace FarmSimulation.UI.Forms
             Controls.Add(cashLabel);
             Controls.Add(buyAnimalButton);
             Controls.Add(sellProductsButton);
-            Controls.Add(deleteSoldProductsButton);
             Controls.Add(resetGameButton);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
@@ -226,18 +198,15 @@ namespace FarmSimulation.UI.Forms
         private Label cashLabel;
         private Button buyAnimalButton;
         private Button sellProductsButton;
-        private Button deleteSoldProductsButton;
         private Button resetGameButton;
         private System.Windows.Forms.Timer simulationTimer;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private DataGridViewProgressBarColumn dataGridViewTextBoxColumn6;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
     }
 }

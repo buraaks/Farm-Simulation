@@ -39,6 +39,11 @@ namespace FarmSimulation.UI.Forms
             await InitializeServices();
         }
 
+        private string GetFullErrorMessage(Exception ex)
+        {
+            return ex.ToString(); // For debugging
+        }
+
         private void InitializeDatabase()
         {
             try
@@ -60,7 +65,7 @@ namespace FarmSimulation.UI.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Database initialization error: {ex.Message}", "Critical Error", 
+                MessageBox.Show(GetFullErrorMessage(ex), "Critical Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
@@ -70,7 +75,7 @@ namespace FarmSimulation.UI.Forms
         {
             if (dbContext == null)
             {
-                MessageBox.Show("Database context could not be initialized.", "Critical Error", 
+                MessageBox.Show(ErrorMessages.DbContextNotInitialized, "Critical Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
                 return;
@@ -89,7 +94,7 @@ namespace FarmSimulation.UI.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error while initializing services: {ex.Message}", "Error", 
+                MessageBox.Show(GetFullErrorMessage(ex), "Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -104,7 +109,7 @@ namespace FarmSimulation.UI.Forms
         {
             if (businessService == null)
             {
-                MessageBox.Show("The system is still starting. Please wait a moment.",
+                MessageBox.Show(ErrorMessages.SystemStarting,
                     "Initialization", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -119,7 +124,7 @@ namespace FarmSimulation.UI.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error while buying animal: {ex.Message}", "Error", 
+                MessageBox.Show(GetFullErrorMessage(ex), "Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -131,35 +136,16 @@ namespace FarmSimulation.UI.Forms
             try
             {
                 decimal earnings = await businessService.SellProductsAsync();
-                MessageBox.Show($"Products sold for {earnings:C}!", "Success",
+                MessageBox.Show($"Ürünler {earnings:C} karşılığında satıldı!", "Başarılı",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 await UpdateUIAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error while selling products: {ex.Message}", "Error", 
+                MessageBox.Show(GetFullErrorMessage(ex), "Hata", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private async void DeleteSoldProductsButton_Click(object sender, EventArgs e)
-        {
-            if (businessService == null) return;
-            
-            try
-            {
-                int deletedCount = await businessService.DeleteSoldProductsAsync();
-                MessageBox.Show($"{deletedCount} sold products were deleted!", "Success",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                await UpdateUIAsync();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error while deleting products: {ex.Message}", "Error", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
 
         private async void SellAllProductsButton_Click(object sender, EventArgs e)
         {
@@ -168,13 +154,13 @@ namespace FarmSimulation.UI.Forms
             try
             {
                 decimal earnings = await businessService.SellProductsAsync();
-                MessageBox.Show($"All products sold for {earnings:C}!", "Success",
+                MessageBox.Show($"Tüm ürünler {earnings:C} karşılığında satıldı!", "Başarılı",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 await UpdateUIAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error while selling products: {ex.Message}", "Error", 
+                MessageBox.Show(GetFullErrorMessage(ex), "Hata", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -185,49 +171,43 @@ namespace FarmSimulation.UI.Forms
             
             try
             {
-                cashLabel.Text = $"Cash: {businessService.Cash.Amount:C}";
+                cashLabel.Text = $"Nakit: {businessService.Cash.Amount:C}";
 
                 animalsGrid.Rows.Clear();
                 foreach (var animal in businessService.Animals)
                 {
-                    int index = animalsGrid.Rows.Add(
+                    animalsGrid.Rows.Add(
                         animal.Id,
                         animal.Name,
                         animal.Age,
                         animal.Type,
-                        animal.IsAlive ? "Yes" : "No",
                         (int)animal.ProductProductionProgress
                     );
-                    if (!animal.IsAlive)
-                        animalsGrid.Rows[index].DefaultCellStyle.BackColor = Color.LightCoral;
                 }
 
-                        productsGrid.Rows.Clear();
+                productsGrid.Rows.Clear();
                 
-                        var groupedProducts = businessService.Products
-                            .GroupBy(p => p.ProductType)
-                            .Select(g => new
-                            {
-                                ProductType = g.Key,
-                                Quantity = g.Sum(p => p.Quantity),
-                                Price = g.First().Price, 
-                                IsSold = g.All(p => p.IsSold)
-                            });
+                var groupedProducts = businessService.Products
+                    .GroupBy(p => p.ProductType)
+                    .Select(g => new
+                    {
+                        ProductType = g.Key,
+                        Quantity = g.Sum(p => p.Quantity),
+                        Price = g.First().Price, 
+                    });
                 
-                        foreach (var product in groupedProducts)
-                        {
-                            int index = productsGrid.Rows.Add(
-                                product.ProductType,
-                                product.Quantity,
-                                product.Price.ToString("C"),
-                                product.IsSold ? "Yes" : "No"
-                            );
-                            productsGrid.Rows[index].DefaultCellStyle.BackColor =
-                                product.IsSold ? Color.LightGreen : Color.LightBlue;
-                        }            }
+                foreach (var product in groupedProducts)
+                {
+                    productsGrid.Rows.Add(
+                        product.ProductType,
+                        product.Quantity,
+                        product.Price.ToString("C")
+                    );
+                }
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error while updating UI: {ex.Message}", "Error", 
+                MessageBox.Show(GetFullErrorMessage(ex), "Hata", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -247,8 +227,8 @@ namespace FarmSimulation.UI.Forms
         private async void ResetGameButton_Click(object? sender, EventArgs e)
         {
             var result = MessageBox.Show(
-                "Are you sure you want to reset the game?\nThis action will reset all animals, products, and cash.",
-                "Reset Game",
+                "Oyunu sıfırlamak istediğinizden emin misiniz?\nBu işlem tüm hayvanları, ürünleri ve nakiti sıfırlayacaktır.",
+                "Oyunu Sıfırla",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
@@ -266,13 +246,13 @@ namespace FarmSimulation.UI.Forms
                         await ResetDatabaseAsync();
                         UpdateUI();
 
-                        MessageBox.Show("Game has been reset successfully!", "Success",
+                        MessageBox.Show("Oyun başarıyla sıfırlandı!", "Başarılı",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error while resetting game: {ex.Message}", "Error", 
+                    MessageBox.Show(GetFullErrorMessage(ex), "Hata", 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -305,7 +285,7 @@ namespace FarmSimulation.UI.Forms
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while resetting database: {ex.Message}", ex);
+                throw new Exception(string.Format(ErrorMessages.ResetGameError, GetFullErrorMessage(ex)), ex);
             }
         }
 
@@ -327,7 +307,7 @@ namespace FarmSimulation.UI.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error during simulation step: {ex.Message}", "Simulation Error",
+                MessageBox.Show(GetFullErrorMessage(ex), "Simülasyon Hatası",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             finally
