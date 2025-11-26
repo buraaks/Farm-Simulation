@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ClEmEwsunBg=",
+  "dgSpecHash": "n6ONWSaKRmI=",
   "success": true,
   "projectFilePath": "C:\\Users\\burak\\OneDrive\\Desktop\\Farm-Simulation\\FarmSimulation.Entities\\FarmSimulation.Entities.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\burak\\.nuget\\packages\\guna.ui2.winforms\\2.0.4.7\\guna.ui2.winforms.2.0.4.7.nupkg.sha512",
+    "C:\\Users\\burak\\.nuget\\packages\\system.codedom\\7.0.0\\system.codedom.7.0.0.nupkg.sha512",
+    "C:\\Users\\burak\\.nuget\\packages\\system.management\\7.0.0\\system.management.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
